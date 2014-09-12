@@ -1,0 +1,18 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+    <entity name="HCLabs\Bills\Model\Account">
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="company"            column="company"               type="string" length="255" />
+        <field name="accountNumber"      column="account_number"        type="string" length="255" />
+        <field name="recurringCharge"    column="recurring_charge"      type="integer" />
+        <field name="dateOpened"         column="date_opened"           type="datetime" />
+        <field name="billingStartDate"   column="billing_start_date"    type="datetime" />
+        <field name="billingInterval"    column="billing_interval"      type="integer" />
+        <field name="dateClosed"         column="date_closed"           type="datetime" nullable="true" />
+    </entity>
+</doctrine-mapping>
