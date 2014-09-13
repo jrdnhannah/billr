@@ -7,4 +7,12 @@
     <route id="hclabs_bills.dashboard_controller.index" path="/">
         <default key="_controller">hclabs_bills.controller.dashboard_controller:indexAction</default>
     </route>
+
+    <route id="hclabs_bills.account_controller.open" path="/account/open" methods="GET">
+        <default key="_controller">hclabs_bills.controller.account_controller:openAction</default>
+    </route>
+    
+    <route id="hclabs_bills.account_controller.process" path="/account/open" methods="POST">
+        <default key="_controller">hclabs_bills.controller.account_controller:processAccountCreationAction</default>
+    </route>
 </routes>

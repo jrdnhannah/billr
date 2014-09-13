@@ -6,6 +6,7 @@
     <parameters>
         <parameter key="hclabs_bills.controller.dashboard_controller.class">HCLabs\Bills\Controller\DashboardController</parameter>
         <parameter key="hclabs_bills.controller.service_controller.class">HCLabs\Bills\Controller\ServiceController</parameter>
+        <parameter key="hclabs_bills.controller.account_controller.class">HCLabs\Bills\Controller\AccountController</parameter>
     </parameters>
 
     <services>
@@ -18,6 +19,14 @@
         <service id="hclabs_bills.controller.service_controller"
                  class="%hclabs_bills.controller.service_controller.class%">
             <argument type="service" id="twig" />
+        </service>
+
+        <service id="hclabs_bills.controller.account_controller"
+                 class="%hclabs_bills.controller.account_controller.class%">
+            <argument type="service" id="twig" />
+            <argument type="service" id="router" />
+            <argument type="service" id="hclabs_bills.command.command_bus" />
+            <argument type="service" id="form.factory" />
         </service>
     </services>
 </container>
