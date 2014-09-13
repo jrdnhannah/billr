@@ -4,7 +4,12 @@
     "type": "project",
     "description": "Bills Software",
     "autoload": {
-        "psr-0": { "": "src/", "SymfonyStandard": "app/" }
+        "psr-4": {
+            "": "src/",
+            "SymfonyStandard\\": "app/",
+            "HCLabs\\Bills\\": "src/HCLabs/Bills/src/",
+            "HCLabs\\Bills\\Tests\\": "src/HCLabs/Bills/tests/"
+        }
     },
     "require": {
         "php": ">=5.3.3",
@@ -16,7 +21,8 @@
         "symfony/monolog-bundle": "~2.4"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~2.3",
+        "phpunit/phpunit": "~4.1"
     },
     "config": {
         "bin-dir": "bin"
