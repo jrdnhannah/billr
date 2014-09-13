@@ -5,6 +5,7 @@ namespace HCLabs\Bills\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use HCLabs\Bills\Billing\BillingPeriod\BillingPeriod;
+use HCLabs\Bills\Exception\InvalidDateIntervalSpecException;
 
 class Account
 {
@@ -48,15 +49,17 @@ class Account
      * @param double         $recurringCharge
      * @param \DateTime      $dateOpened
      * @param \DateTime      $billingStartDate
-     * @param BillingPeriod  $billingPeriod
+     * @param string         $billingPeriod
      * @param \DateTime      $closureDate
      * @return \HCLabs\Bills\Model\Account
      */
-    public static function open(Service $service, $accountNumber, $recurringCharge, \DateTime $dateOpened, BillingPeriod $billingPeriod, \DateTime $billingStartDate = null, \DateTime $closureDate = null)
+    public static function open(Service $service, $accountNumber, $recurringCharge, \DateTime $dateOpened, $billingPeriod, \DateTime $billingStartDate = null, \DateTime $closureDate = null)
     {
         if (null === $billingStartDate) {
             $billingStartDate = $dateOpened;
         }
+
+        self::guardAgainstBadDateIntervalSpec($billingPeriod);
 
         $account = new Account;
         $account->service          = $service;
@@ -65,9 +68,22 @@ class Account
         $account->dateOpened       = $dateOpened;
         $account->billingStartDate = $billingStartDate;
         $account->dateClosed       = $closureDate;
-        $account->billingInterval  = $billingPeriod->getBillingIntervalString();
+        $account->billingInterval  = $billingPeriod;
 
         return $account;
+    }
+
+    /**
+     * @param $billingPeriod
+     * @throws InvalidDateIntervalSpecException
+     */
+    private static function guardAgainstBadDateIntervalSpec($billingPeriod)
+    {
+        try {
+            new \DateInterval($billingPeriod);
+        } catch (\Exception $e) {
+            throw new InvalidDateIntervalSpecException;
+        }
     }
 
     /**

@@ -24,7 +24,13 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     public function it_should_subscribe_using_default_parameters()
     {
         $dateOpened = new \DateTime('now');
-        $account = Account::open($this->createServicesAndCompany(), '1234', 50.00, $dateOpened, new Monthly());
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString()
+        );
 
         $this->assertSame('1234', $account->getAccountNumber());
         $this->assertSame(50.00, $account->getRecurringCharge());
@@ -38,7 +44,13 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     public function it_should_increase_recurring_charge()
     {
         $dateOpened = new \DateTime('now');
-        $account = Account::open($this->createServicesAndCompany(), '1234', 50.00, $dateOpened, new Monthly());
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString()
+        );
 
         $account->increaseRecurringCharge(25.00);
 
@@ -51,7 +63,13 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     public function it_should_decrease_recurring_charge()
     {
         $dateOpened = new \DateTime('now');
-        $account = Account::open($this->createServicesAndCompany(), '1234', 50.00, $dateOpened, new Monthly());
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString()
+        );
 
         $account->decreaseRecurringCharge(10.00);
 
@@ -64,13 +82,29 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     public function it_should_not_be_active_if_the_closing_date_is_today_or_earlier()
     {
         $dateOpened = new \DateTime('now');
-        $account = Account::open($this->createServicesAndCompany(), '1234', 50.00, $dateOpened, new Monthly(), null, $dateOpened);
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString(),
+            null,
+            $dateOpened
+        );
 
         $this->assertFalse($account->isActive());
 
 
         $closingDate = $dateOpened->sub(new \DateInterval('P30D'));
-        $account = Account::open($this->createServicesAndCompany(), '1234', 50.00, $dateOpened, new Monthly(), null, $closingDate);
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString(),
+            null,
+            $closingDate
+        );
 
         $this->assertFalse($account->isActive());
     }
@@ -81,7 +115,14 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     public function it_should_be_active_without_a_closing_date()
     {
         $dateOpened = new \DateTime('now');
-        $account = Account::open($this->createServicesAndCompany(), '1234', 50.00, $dateOpened, new Monthly(), null);
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString(),
+            null
+        );
 
         $this->assertTrue($account->isActive());
     }
@@ -92,7 +133,14 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     public function it_should_be_active_with_a_later_closing_date()
     {
         $dateOpened = new \DateTime('now');
-        $account = Account::open($this->createServicesAndCompany(), '1234', 50.00, $dateOpened, new Monthly(), $dateOpened->add(new \DateInterval('P3D')));
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString(),
+            $dateOpened->add(new \DateInterval('P3D'))
+        );
 
         $this->assertTrue($account->isActive());
     }
