@@ -1,0 +1,19 @@
+env:
+    - SYMFONY_VERSION="2.3.*" SENSIO_FEB_VERSION="2.3.*"
+    - SYMFONY_VERSION="2.4.*" SENSIO_FEB_VERSION="~3.0"
+    - SYMFONY_VERSION="2.5.*" SENSIO_FEB_VERSION="~3.0"
+
+language: php
+php:
+    - 5.5
+    - 5.4
+    - hhvm
+
+matrix:
+    allow_failures:
+        - php: hhvm
+
+install:
+    - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-update
+    - composer require sensio/framework-extra-bundle:${SENSIO_FEB_VERSION} --no-update
+    - composer update
