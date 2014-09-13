@@ -3,5 +3,24 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block body %}
-
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Company</th>
+            <th>Service</th>
+            <th>Price</th>
+            <th>Billing Period</th>
+            <th>Next Bill</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for account in accounts %}
+            <tr>
+                <td>{{ account.service.company.name }}</td>
+                <td>{{ account.service.providedService }}</td>
+                <td>&pound;{{ account.recurringCharge }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
