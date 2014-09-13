@@ -2,13 +2,17 @@
 
 namespace HCLabs\Bills\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use HCLabs\Bills\Billing\BillingPeriod\BillingPeriod;
+
 class Account
 {
     /** @var int */
     private $id;
 
-    /** @var string */
-    private $company;
+    /** @var Service */
+    private $service;
 
     /** @var string */
     private $accountNumber;
@@ -28,54 +32,58 @@ class Account
     /** @var \DateTime */
     private $dateClosed;
 
+    /** @var Bill[]|Collection */
+    private $bills;
+
     private function __construct()
     {
+        $this->bills = new ArrayCollection;
     }
 
     /**
      * Subscribe to a new service
      *
-     * @param string    $company
-     * @param string    $accountNumber
-     * @param double    $recurringCharge
-     * @param \DateTime $dateOpened
-     * @param \DateTime $billingStartDate
-     * @param int       $billingInterval
-     * @param \DateTime $closureDate
+     * @param Service        $service
+     * @param string         $accountNumber
+     * @param double         $recurringCharge
+     * @param \DateTime      $dateOpened
+     * @param \DateTime      $billingStartDate
+     * @param BillingPeriod  $billingPeriod
+     * @param \DateTime      $closureDate
      * @return \HCLabs\Bills\Model\Account
      */
-    public static function subscribe($company, $accountNumber, $recurringCharge, \DateTime $dateOpened, \DateTime $billingStartDate = null, $billingInterval = 30, \DateTime $closureDate = null)
+    public static function open(Service $service, $accountNumber, $recurringCharge, \DateTime $dateOpened, BillingPeriod $billingPeriod, \DateTime $billingStartDate = null, \DateTime $closureDate = null)
     {
         if (null === $billingStartDate) {
             $billingStartDate = $dateOpened;
         }
 
         $account = new Account;
-        $account->company          = $company;
+        $account->service          = $service;
         $account->accountNumber    = $accountNumber;
         $account->recurringCharge  = $recurringCharge * 10;
         $account->dateOpened       = $dateOpened;
         $account->billingStartDate = $billingStartDate;
-        $account->billingInterval  = $billingInterval;
         $account->dateClosed       = $closureDate;
+        $account->billingInterval  = $billingPeriod->getBillingIntervalString();
 
         return $account;
     }
 
     /**
-     * @param int $newCharge
+     * @param double $amount
      */
-    public function increaseRecurringCharge($newCharge)
+    public function increaseRecurringCharge($amount)
     {
-        $this->recurringCharge = $newCharge;
+        $this->recurringCharge += ($amount * 10);
     }
 
     /**
-     * @param int $newCharge
+     * @param double $amount
      */
-    public function decreaseRecurringCharge($newCharge)
+    public function decreaseRecurringCharge($amount)
     {
-        $this->recurringCharge = $newCharge;
+        $this->recurringCharge -= ($amount * 10);
     }
 
     /**
@@ -87,7 +95,7 @@ class Account
             return true;
         }
 
-        return new \DateTime('now') >= $this->dateClosed;
+        return new \DateTime('now') < $this->dateClosed;
     }
 
     /**
@@ -128,14 +136,6 @@ class Account
     }
 
     /**
-     * @return int
-     */
-    public function getBillingInterval()
-    {
-        return $this->billingInterval;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getBillingStartDate()
@@ -144,11 +144,11 @@ class Account
     }
 
     /**
-     * @return string
+     * @return Service
      */
-    public function getCompany()
+    public function getService()
     {
-        return $this->company;
+        return $this->service;
     }
 
     /**
@@ -160,10 +160,10 @@ class Account
     }
 
     /**
-     * @return int
+     * @return double
      */
     public function getRecurringCharge()
     {
-        return $this->recurringCharge;
+        return $this->recurringCharge / 10;
     }
 }
