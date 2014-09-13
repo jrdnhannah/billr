@@ -18,6 +18,7 @@ class BillsExtension extends ConfigurableExtension implements PrependExtensionIn
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/'));
         $loader->load('services.xml');
         $loader->load('services/controllers.xml');
+        $loader->load('services/command.xml');
     }
 
     public function prepend(ContainerBuilder $container)

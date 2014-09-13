@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="hclabs_bills.command.command_bus.class">HCLabs\Bills\Command\Bus\CommandBus</parameter>
+        <parameter key="hclabs_bills.command.open_account_command.class">HCLabs\Bills\Command\Handler\OpenAccountCommandHandler</parameter>
+    </parameters>
+
+    <services>
+        <service id="hclabs_bills.command.command_bus" class="%hclabs_bills.command.command_bus.class%" />
+
+        <service id="hclabs_bills.command.open_account_command"
+                 class="%hclabs_bills.command.open_account_command.class%">
+            <argument type="service" id="doctrine" />
+            <tag name="command.handler" />
+        </service>
+    </services>
+</container>
