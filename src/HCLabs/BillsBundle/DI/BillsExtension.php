@@ -4,10 +4,11 @@ namespace HCLabs\BillsBundle\DI;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-class BillsExtension extends ConfigurableExtension
+class BillsExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
     /**
      * {@inheritdoc}
@@ -18,6 +19,21 @@ class BillsExtension extends ConfigurableExtension
         $loader->load('services.xml');
     }
 
+    public function prepend(ContainerBuilder $container)
+    {
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (false === isset($bundles['TwigBundle'])) {
+            return;
+        }
+
+        $container->prependExtensionConfig(
+            'twig',
+            ['paths' => [
+                '%kernel.root_dir%/../src/HCLabs/Bills/src/Views' => 'HCLabsBills'
+            ]]
+        );
+    }
 
     /**
      * {@inheritdoc}
