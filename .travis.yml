@@ -17,5 +17,8 @@ install:
     - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-update
     - composer update
 
+before_script:
+    touch app/bootstrap.cache.php
+
 script:
     ./bin/phpunit -c app/
