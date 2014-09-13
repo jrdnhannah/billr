@@ -9,7 +9,7 @@ module.exports = function (grunt) {
             scripts: {
                 files: {
                     'js/jquery.min.js': 'bower_components/jquery/dist/jquery.min.js',
-                    'js/bootstrap.min.js': 'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                    'js/bootstrap.min.js': 'bower_components/bootstrap/dist/js/bootstrap.min.js'
                 }
             },
             stylesheets: {
