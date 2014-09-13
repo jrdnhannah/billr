@@ -1,0 +1,2 @@
+hclabs_bills:
+    resource: "@HCLabsBillsBundle/Resources/config/routing/routing.xml"
