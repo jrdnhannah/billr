@@ -6,6 +6,7 @@
     <parameters>
         <parameter key="hclabs_bills.command.command_bus.class">HCLabs\Bills\Command\Bus\CommandBus</parameter>
         <parameter key="hclabs_bills.command.open_account_command.class">HCLabs\Bills\Command\Handler\OpenAccountCommandHandler</parameter>
+        <parameter key="hclabs_bills.command.command_validation_handler.class">HCLabs\Bills\Command\Handler\CommandValidationHandler</parameter>
     </parameters>
 
     <services>
@@ -14,6 +15,12 @@
         <service id="hclabs_bills.command.open_account_command"
                  class="%hclabs_bills.command.open_account_command.class%">
             <argument type="service" id="doctrine" />
+            <tag name="command.handler" />
+        </service>
+
+        <service id="hclabs_bills.command.command_validation_handler"
+                 class="%hclabs_bills.command.command_validation_handler.class%">
+            <argument type="service" id="validator" />
             <tag name="command.handler" />
         </service>
     </services>
