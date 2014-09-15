@@ -20,11 +20,17 @@
         "twig/extensions": "~1.0",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
-        "doctrine/doctrine-fixtures-bundle": "2.2.*"
+        "doctrine/doctrine-fixtures-bundle": "2.2.*",
+        "sensio/distribution-bundle": "~3.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
         "phpunit/phpunit": "~4.1"
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap"
+        ]
     },
     "config": {
         "bin-dir": "bin"
