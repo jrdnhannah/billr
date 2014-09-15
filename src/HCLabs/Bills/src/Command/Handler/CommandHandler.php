@@ -11,4 +11,9 @@ interface CommandHandler
      * @return bool
      */
     public function supports($class);
+
+    /**
+     * @return int
+     */
+    public function getPriority();
 }

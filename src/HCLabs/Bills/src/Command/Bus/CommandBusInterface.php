@@ -22,4 +22,9 @@ interface CommandBusInterface
      * @throws \HCLabs\Bills\Exception\NoCommandHandlerFoundException
      */
     public function execute($command);
+
+    /**
+     * @return CommandHandler[]
+     */
+    public function getHandlers();
 }

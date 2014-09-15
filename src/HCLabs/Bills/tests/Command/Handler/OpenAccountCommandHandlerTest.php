@@ -57,6 +57,17 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     */
+    public function it_should_have_a_priority_of_zero()
+    {
+        $registry = $this->getRegistryMock();
+        $handler  = new OpenAccountCommandHandler($registry);
+
+        $this->assertSame(0, $handler->getPriority());
+    }
+
+    /**
      * @param $entityManagerMock
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
