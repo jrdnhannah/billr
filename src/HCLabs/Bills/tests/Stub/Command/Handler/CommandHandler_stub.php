@@ -8,6 +8,19 @@ class CommandHandler_stub implements CommandHandler
 {
     public $handled = false;
 
+    private $priority;
+
+    /**
+     * @param $priority
+     */
+    public function __construct($priority = 0)
+    {
+        $this->priority = $priority;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function handle($command)
     {
         $this->handled = true;
@@ -21,4 +34,11 @@ class CommandHandler_stub implements CommandHandler
         return $class === 'foo';
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
 }

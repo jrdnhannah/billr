@@ -61,5 +61,33 @@ class CommandBusTest extends \PHPUnit_Framework_TestCase
 
         $commandBus->execute('bar');
     }
+
+    /**
+     * @test
+     */
+    public function it_should_load_and_execute_command_handlers_in_a_specific_order()
+    {
+        $commandBus = new CommandBus;
+        $handlerA   = new CommandHandler_stub(255);
+        $handlerB   = new CommandHandler_stub(-20);
+        $handlerC   = new CommandHandler_stub(0);
+        $handlerD   = new CommandHandler_stub(0);
+
+        $commandBus->addHandler($handlerA);
+        $commandBus->addHandler($handlerB);
+        $commandBus->addHandler($handlerC);
+        $commandBus->addHandler($handlerD);
+
+        $handlers = $commandBus->getHandlers();
+
+        $expectedHandlers = [
+            $handlerA,
+            $handlerC,
+            $handlerD,
+            $handlerB
+        ];
+
+        $this->assertSame($expectedHandlers, $handlers);
+    }
 }
  

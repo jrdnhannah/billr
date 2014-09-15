@@ -36,8 +36,29 @@ class CommandBus implements CommandBusInterface
             }
         }
 
-        if(false === $handled) {
+        if (false === $handled) {
             throw new NoCommandHandlerFoundException;
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getHandlers()
+    {
+        $this->sortHandlers();
+        return $this->handlers;
+    }
+
+    private function sortHandlers()
+    {
+        usort($this->handlers, function(CommandHandler $a, CommandHandler $b) {
+                if ($a->getPriority() === $b->getPriority()) {
+                    return 0;
+                }
+
+                return $a->getPriority() > $b->getPriority() ? -1 : 1;
+            }
+        );
     }
 }
