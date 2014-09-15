@@ -42,4 +42,11 @@ class OpenAccountCommandHandler implements CommandHandler
         return is_a($class, 'HCLabs\Bills\Command\OpenAccountCommand', true);
     }
 
+    /**
+     * @return int
+     */
+    public function getPriority()
+    {
+        return 0;
+    }
 }
