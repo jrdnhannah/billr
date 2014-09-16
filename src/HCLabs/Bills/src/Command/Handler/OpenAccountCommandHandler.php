@@ -37,9 +37,9 @@ class OpenAccountCommandHandler implements CommandHandler
     /**
      * {@inheritdoc}
      */
-    public function supports($class)
+    public function supports()
     {
-        return is_a($class, 'HCLabs\Bills\Command\OpenAccountCommand', true);
+        return 'HCLabs\Bills\Command\OpenAccountCommand';
     }
 
     /**
