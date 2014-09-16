@@ -29,9 +29,9 @@ class CommandHandler_stub implements CommandHandler
     /**
      * {@inheritdoc}
      */
-    public function supports($class)
+    public function supports()
     {
-        return $class === 'foo';
+        return 'HCLabs\Bills\Tests\Stub\Command\Command_stub';
     }
 
     /**
