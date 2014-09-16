@@ -28,17 +28,14 @@ class CommandBus implements CommandBusInterface
      */
     public function execute($command)
     {
-        $handled = false;
         foreach ($this->handlers as $handler) {
-            if ($handler->supports($command)) {
+            if (get_class($command) === $handler->supports()) {
                 $handler->handle($command);
-                $handled = true;
+                return;
             }
         }
 
-        if (false === $handled) {
-            throw new NoCommandHandlerFoundException;
-        }
+        throw new NoCommandHandlerFoundException;
     }
 
     /**
