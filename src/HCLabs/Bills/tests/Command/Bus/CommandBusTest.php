@@ -2,6 +2,7 @@
 namespace HCLabs\Bills\Tests\Command\Bus;
 
 use HCLabs\Bills\Command\Bus\CommandBus;
+use HCLabs\Bills\Tests\Stub\Command\Command_stub;
 use HCLabs\Bills\Tests\Stub\Command\Handler\CommandHandler_stub;
 
 class CommandBusTest extends \PHPUnit_Framework_TestCase
@@ -35,7 +36,7 @@ class CommandBusTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($handler->handled);
 
-        $commandBus->execute('foo');
+        $commandBus->execute(new Command_stub);
 
         $this->assertTrue($handler->handled);
     }
@@ -47,7 +48,7 @@ class CommandBusTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('HCLabs\Bills\Exception\NoCommandHandlerFoundException');
         $commandBus = new CommandBus;
-        $commandBus->execute('foo');
+        $commandBus->execute(new \stdClass);
     }
 
     /**
@@ -59,7 +60,7 @@ class CommandBusTest extends \PHPUnit_Framework_TestCase
         $commandBus = new CommandBus;
         $commandBus->addHandler(new CommandHandler_stub);
 
-        $commandBus->execute('bar');
+        $commandBus->execute(new \stdClass);
     }
 
     /**

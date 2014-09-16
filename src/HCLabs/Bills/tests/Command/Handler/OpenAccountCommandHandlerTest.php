@@ -50,10 +50,8 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler = new OpenAccountCommandHandler($registry);
 
-        $this->assertTrue($handler->supports(new OpenAccountCommand()));
-        $this->assertTrue($handler->supports('HCLabs\Bills\Command\OpenAccountCommand'));
-        $this->assertFalse($handler->supports(new \stdClass));
-        $this->assertFalse($handler->supports('foo'));
+        $this->assertSame(get_class(new OpenAccountCommand), $handler->supports());
+        $this->assertNotSame('Foo', $handler->supports());
     }
 
     /**
