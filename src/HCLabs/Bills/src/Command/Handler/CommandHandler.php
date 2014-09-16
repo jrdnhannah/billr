@@ -7,10 +7,9 @@ interface CommandHandler
     public function handle($command);
 
     /**
-     * @param string|object $class
-     * @return bool
+     * @return string
      */
-    public function supports($class);
+    public function supports();
 
     /**
      * @return int
