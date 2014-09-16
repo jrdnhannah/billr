@@ -41,6 +41,23 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_should_throw_an_exception_with_a_bad_billing_period()
+    {
+        $this->setExpectedException('HCLabs\Bills\Exception\InvalidDateIntervalSpecException');
+
+        $dateOpened = new \DateTime('now');
+        Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            'FooBar'
+        );
+    }
+
+    /**
+     * @test
+     */
     public function it_should_increase_recurring_charge()
     {
         $dateOpened = new \DateTime('now');
@@ -139,10 +156,96 @@ class AccountTest extends \PHPUnit_Framework_TestCase
             50.00,
             $dateOpened,
             (new Monthly)->getBillingIntervalString(),
+            $dateOpened->add(new \DateInterval('P3D')),
+            $dateOpened->add(new \DateInterval('P5D'))
+        );
+
+        $this->assertTrue($account->isActive());
+
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString(),
+            $dateOpened->add(new \DateInterval('P3D'))
+        );
+
+        $account->scheduleAccountClosure(new \DateTime('now +7 days'));
+
+        $this->assertTrue($account->isActive());
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_be_closed_if_the_closing_date_is_earlier_than_today()
+    {
+        $dateOpened = new \DateTime('now');
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString(),
+            $dateOpened->add(new \DateInterval('P3D')),
+            $dateOpened->sub(new \DateInterval('P5D'))
+        );
+
+        $this->assertFalse($account->isActive());
+
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString(),
+            $dateOpened->add(new \DateInterval('P3D'))
+        );
+
+        $account->scheduleAccountClosure(new \DateTime('now -7 days'));
+
+        $this->assertFalse($account->isActive());
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_close_immediately_when_close_is_called()
+    {
+        $dateOpened = new \DateTime('now');
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString(),
             $dateOpened->add(new \DateInterval('P3D'))
         );
 
         $this->assertTrue($account->isActive());
+        $account->close();
+        $this->assertFalse($account->isActive());
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_provide_the_service_when_asked()
+    {
+        $service = $this->createServicesAndCompany();
+
+        $dateOpened = new \DateTime('now');
+        $account = Account::open(
+            $service,
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString(),
+            $dateOpened->add(new \DateInterval('P3D'))
+        );
+
+        $this->assertSame($service, $account->getService());
     }
 }
  
