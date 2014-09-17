@@ -18,7 +18,9 @@ class CommandBusCompilerPass implements CompilerPassInterface
         $handlers = $container->findTaggedServiceIds('command.handler');
 
         foreach ($handlers as $id => $tag) {
-            $bus->addMethodCall('addHandler', [new Reference($id)]);
+            foreach ($tag as $tagAttributes) {
+                $bus->addMethodCall('addHandler', [new Reference($id), $tagAttributes['handles']]);
+            }
         }
     }
 

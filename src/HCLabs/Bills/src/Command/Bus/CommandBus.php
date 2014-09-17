@@ -3,6 +3,7 @@
 namespace HCLabs\Bills\Command\Bus;
 
 use HCLabs\Bills\Command\Handler\CommandHandler;
+use HCLabs\Bills\Exception\CommandAlreadyRegisteredException;
 use HCLabs\Bills\Exception\NoCommandHandlerFoundException;
 
 class CommandBus implements CommandBusInterface
@@ -18,9 +19,11 @@ class CommandBus implements CommandBusInterface
     /**
      * {@inheritdoc}
      */
-    public function addHandler(CommandHandler $handler)
+    public function addHandler(CommandHandler $handler, $commandToHandleClass)
     {
-        $this->handlers[] = $handler;
+        $this->guardAgainstDuplicateCommand($commandToHandleClass);
+
+        $this->handlers[$commandToHandleClass] = $handler;
     }
 
     /**
@@ -28,14 +31,10 @@ class CommandBus implements CommandBusInterface
      */
     public function execute($command)
     {
-        foreach ($this->handlers as $handler) {
-            if (get_class($command) === $handler->supports()) {
-                $handler->handle($command);
-                return;
-            }
-        }
+        $commandClass = get_class($command);
+        $this->guardAgainstUnregisteredCommand($commandClass);
 
-        throw new NoCommandHandlerFoundException;
+        $this->handlers[$commandClass]->handle($command);
     }
 
     /**
@@ -43,19 +42,28 @@ class CommandBus implements CommandBusInterface
      */
     public function getHandlers()
     {
-        $this->sortHandlers();
         return $this->handlers;
     }
 
-    private function sortHandlers()
+    /**
+     * @param  string $commandToHandleClass
+     * @throws CommandAlreadyRegisteredException
+     */
+    private function guardAgainstDuplicateCommand($commandToHandleClass)
     {
-        usort($this->handlers, function(CommandHandler $a, CommandHandler $b) {
-                if ($a->getPriority() === $b->getPriority()) {
-                    return 0;
-                }
+        if (isset($this->handlers[$commandToHandleClass])) {
+            throw new CommandAlreadyRegisteredException($commandToHandleClass);
+        }
+    }
 
-                return $a->getPriority() > $b->getPriority() ? -1 : 1;
-            }
-        );
+    /**
+     * @param  string $commandClass
+     * @throws NoCommandHandlerFoundException
+     */
+    private function guardAgainstUnregisteredCommand($commandClass)
+    {
+        if (false === isset($this->handlers[$commandClass])) {
+            throw new NoCommandHandlerFoundException;
+        }
     }
 }

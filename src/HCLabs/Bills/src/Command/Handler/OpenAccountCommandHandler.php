@@ -32,21 +32,6 @@ class OpenAccountCommandHandler implements CommandHandler
         $manager = $this->registry->getManagerForClass(get_class($account));
         $manager->persist($account);
         $manager->flush();
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function supports()
-    {
-        return 'HCLabs\Bills\Command\OpenAccountCommand';
-    }
-
-    /**
-     * @return int
-     */
-    public function getPriority()
-    {
-        return 0;
     }
 }

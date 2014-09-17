@@ -10,9 +10,10 @@ interface CommandBusInterface
      * Add a command handler
      *
      * @param CommandHandler $handler
+     * @param string         $commandToHandleClass
      * @return void
      */
-    public function addHandler(CommandHandler $handler);
+    public function addHandler(CommandHandler $handler, $commandToHandleClass);
 
     /**
      * Execute a command using all registered handlers

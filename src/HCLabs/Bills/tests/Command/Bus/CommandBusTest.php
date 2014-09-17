@@ -19,9 +19,23 @@ class CommandBusTest extends \PHPUnit_Framework_TestCase
         $reflection->setAccessible(true);
         $this->assertSame([], $reflection->getValue($commandBus));
 
-        $commandBus->addHandler($handler);
+        $commandBus->addHandler($handler, 'HCLabs\Bills\Tests\Command\Command_stub');
 
-        $this->assertSame([$handler], $reflection->getValue($commandBus));
+        $this->assertSame(['HCLabs\Bills\Tests\Command\Command_stub' => $handler], $reflection->getValue($commandBus));
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_throw_an_exception_if_handler_already_exists()
+    {
+        $this->setExpectedException('HCLabs\Bills\Exception\CommandAlreadyRegisteredException');
+
+        $commandBus = new CommandBus;
+        $handler = new CommandHandler_stub;
+
+        $commandBus->addHandler($handler, 'HCLabs\Bills\Tests\Command\Command_stub');
+        $commandBus->addHandler($handler, 'HCLabs\Bills\Tests\Command\Command_stub');
     }
 
     /**
@@ -32,7 +46,7 @@ class CommandBusTest extends \PHPUnit_Framework_TestCase
         $commandBus = new CommandBus;
         $handler = new CommandHandler_stub;
 
-        $commandBus->addHandler($handler);
+        $commandBus->addHandler($handler, get_class(new Command_stub));
 
         $this->assertFalse($handler->handled);
 
@@ -58,37 +72,9 @@ class CommandBusTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('HCLabs\Bills\Exception\NoCommandHandlerFoundException');
         $commandBus = new CommandBus;
-        $commandBus->addHandler(new CommandHandler_stub);
+        $commandBus->addHandler(new CommandHandler_stub, 'HCLabs\Bills\Test\Command\CommandHandler_stub');
 
         $commandBus->execute(new \stdClass);
-    }
-
-    /**
-     * @test
-     */
-    public function it_should_load_and_execute_command_handlers_in_a_specific_order()
-    {
-        $commandBus = new CommandBus;
-        $handlerA   = new CommandHandler_stub(255);
-        $handlerB   = new CommandHandler_stub(-20);
-        $handlerC   = new CommandHandler_stub(0);
-        $handlerD   = new CommandHandler_stub(0);
-
-        $commandBus->addHandler($handlerA);
-        $commandBus->addHandler($handlerB);
-        $commandBus->addHandler($handlerC);
-        $commandBus->addHandler($handlerD);
-
-        $handlers = $commandBus->getHandlers();
-
-        $expectedHandlers = [
-            $handlerA,
-            $handlerC,
-            $handlerD,
-            $handlerB
-        ];
-
-        $this->assertSame($expectedHandlers, $handlers);
     }
 }
  
