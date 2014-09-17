@@ -111,10 +111,6 @@ class Account
      */
     public function isActive()
     {
-        if (null === $this->dateClosed) {
-            return true;
-        }
-
         return new \DateTime('now') < $this->dateClosed;
     }
 
