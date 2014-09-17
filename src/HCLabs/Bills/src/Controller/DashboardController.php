@@ -2,7 +2,7 @@
 
 namespace HCLabs\Bills\Controller;
 
-use Doctrine\Common\Persistence\ObjectRepository;
+use HCLabs\Bills\Model\Repository\AccountRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class DashboardController
@@ -10,14 +10,14 @@ class DashboardController
     /** @var \Twig_Environment */
     private $templating;
 
-    /** @var ObjectRepository */
+    /** @var AccountRepository */
     private $accountRepository;
 
     /**
      * @param \Twig_Environment $templating
-     * @param ObjectRepository $accountRepository
+     * @param AccountRepository $accountRepository
      */
-    public function __construct(\Twig_Environment $templating, ObjectRepository $accountRepository)
+    public function __construct(\Twig_Environment $templating, AccountRepository $accountRepository)
     {
         $this->templating        = $templating;
         $this->accountRepository = $accountRepository;

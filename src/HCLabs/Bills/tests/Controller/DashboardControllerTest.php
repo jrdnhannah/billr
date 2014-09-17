@@ -39,7 +39,7 @@ class DashboardControllerTest extends \PHPUnit_Framework_TestCase
      */
     private function getRepositoryMock()
     {
-        return $this->getMockForAbstractClass('\Doctrine\Common\Persistence\ObjectRepository');
+        return $this->getMockForAbstractClass('\HCLabs\Bills\Model\Repository\AccountRepository');
     }
 }
  
