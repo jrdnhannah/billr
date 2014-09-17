@@ -59,6 +59,10 @@ class Account
             $billingStartDate = $dateOpened;
         }
 
+        if (null === $closureDate) {
+            $closureDate = $dateOpened->add(new \DateInterval('P1Y'));
+        }
+
         self::guardAgainstBadDateIntervalSpec($billingPeriod);
 
         $account = new Account;
