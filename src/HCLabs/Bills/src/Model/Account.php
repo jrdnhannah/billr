@@ -136,6 +136,14 @@ class Account
     }
 
     /**
+     * @return \DateTime
+     */
+    public function dateToClose()
+    {
+        return $this->dateClosed;
+    }
+
+    /**
      * @return string
      */
     public function getAccountNumber()
@@ -173,5 +181,13 @@ class Account
     public function getRecurringCharge()
     {
         return $this->recurringCharge / 10;
+    }
+
+    /**
+     * @return \DateInterval
+     */
+    public function getBillingInterval()
+    {
+        return new \DateInterval($this->billingInterval);
     }
 }
