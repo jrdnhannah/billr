@@ -5,23 +5,28 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
         <parameter key="hclabs_bills.command.command_bus.class">HCLabs\Bills\Command\Bus\CommandBus</parameter>
-        <parameter key="hclabs_bills.command.open_account_command.class">HCLabs\Bills\Command\Handler\OpenAccountCommandHandler</parameter>
+        <parameter key="hclabs_bills.command.command_handler.class">HCLabs\Bills\Command\Handler\CommandHandler</parameter>
+
+        <parameter key="hclabs_bills.command.open_account_command_handler.class">HCLabs\Bills\Command\Handler\OpenAccountCommandHandler</parameter>
         <parameter key="hclabs_bills.command.command_validation_handler.class">HCLabs\Bills\Command\Handler\CommandValidationHandler</parameter>
+
+        <parameter key="hclabs_bills.command.open_account_command.class">HCLabs\Bills\Command\OpenAccountCommand</parameter>
     </parameters>
 
     <services>
         <service id="hclabs_bills.command.command_bus" class="%hclabs_bills.command.command_bus.class%" />
 
-        <service id="hclabs_bills.command.open_account_command"
-                 class="%hclabs_bills.command.open_account_command.class%">
+        <service id="hclabs_bills.command.command_handler"
+                 class="%hclabs_bills.command.command_handler.class%"
+                 abstract="true">
+            <argument type="service" id="event_dispatcher" />
             <argument type="service" id="doctrine" />
-            <tag name="command.handler" />
         </service>
 
-        <service id="hclabs_bills.command.command_validation_handler"
-                 class="%hclabs_bills.command.command_validation_handler.class%">
-            <argument type="service" id="validator" />
-            <tag name="command.handler" />
+        <service id="hclabs_bills.command.open_account_command_handler"
+                 class="%hclabs_bills.command.open_account_command_handler.class%"
+                 parent="hclabs_bills.command.command_handler">
+            <tag name="command.handler" handles="%hclabs_bills.command.open_account_command.class%" />
         </service>
     </services>
 </container>

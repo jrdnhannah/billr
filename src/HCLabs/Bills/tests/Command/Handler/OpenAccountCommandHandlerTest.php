@@ -37,32 +37,8 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
         $entityManager->expects($this->once())
                         ->method('flush');
 
-        $handler = new OpenAccountCommandHandler($registry);
+        $handler = new OpenAccountCommandHandler($this->getEventDispatcherMock(), $registry);
         $handler->handle($command);
-    }
-
-    /**
-     * @test
-     */
-    public function it_should_support_openaccountcommand_object()
-    {
-        $registry = $this->getRegistryMock();
-
-        $handler = new OpenAccountCommandHandler($registry);
-
-        $this->assertSame(get_class(new OpenAccountCommand), $handler->supports());
-        $this->assertNotSame('Foo', $handler->supports());
-    }
-
-    /**
-     * @test
-     */
-    public function it_should_have_a_priority_of_zero()
-    {
-        $registry = $this->getRegistryMock();
-        $handler  = new OpenAccountCommandHandler($registry);
-
-        $this->assertSame(0, $handler->getPriority());
     }
 
     /**
@@ -79,6 +55,19 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 ->willReturn($entityManagerMock);
 
         return $registry;
+    }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    private function getEventDispatcherMock()
+    {
+        $dispatcher = $this->getMockForAbstractClass('\Symfony\Component\EventDispatcher\EventDispatcherInterface');
+
+        $dispatcher->expects($this->any())
+                   ->method('dispatch');
+
+        return $dispatcher;
     }
 
     /**
