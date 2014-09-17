@@ -247,5 +247,62 @@ class AccountTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($service, $account->getService());
     }
+
+    /**
+     * @test
+     */
+    public function it_should_return_a_date_interval_for_billing_interval()
+    {
+        $dateOpened = new \DateTime('now');
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString()
+        );
+
+        $interval = new \DateInterval((new Monthly)->getBillingIntervalString());
+
+        $this->assertEquals($interval, $account->getBillingInterval());
+        $this->assertNotEquals(new \DateInterval('P3M'), $account->getBillingInterval());
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_return_the_closure_date()
+    {
+        $dateOpened = new \DateTime('now');
+        $dateClosed = new \DateTime('now +7 days');
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString(),
+            $dateOpened,
+            $dateClosed
+        );
+
+        $this->assertEquals($dateClosed, $account->dateToClose());
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_have_a_default_closure_date_of_one_year_later()
+    {
+        $dateOpened = new \DateTime('now');
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString()
+        );
+
+        $this->assertEquals($dateOpened->add(new \DateInterval('P1Y')), $account->dateToClose());
+    }
 }
  
