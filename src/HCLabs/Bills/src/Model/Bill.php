@@ -28,7 +28,7 @@ class Bill
     {
         $bill = new Bill;
         $bill->account = $account;
-        $bill->amount  = $account->getRecurringCharge() * 10;
+        $bill->amount  = (int) ($account->getRecurringCharge() * 100);
         $bill->dateDue = $dateDue;
 
         return $bill;
