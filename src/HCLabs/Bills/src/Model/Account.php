@@ -68,7 +68,7 @@ class Account
         $account = new Account;
         $account->service          = $service;
         $account->accountNumber    = $accountNumber;
-        $account->recurringCharge  = $recurringCharge * 10;
+        $account->recurringCharge  = (int) ($recurringCharge * 100);
         $account->dateOpened       = $dateOpened;
         $account->billingStartDate = $billingStartDate;
         $account->dateClosed       = $closureDate;
@@ -95,7 +95,7 @@ class Account
      */
     public function increaseRecurringCharge($amount)
     {
-        $this->recurringCharge += ($amount * 10);
+        $this->recurringCharge += ($amount * 100);
     }
 
     /**
@@ -103,7 +103,7 @@ class Account
      */
     public function decreaseRecurringCharge($amount)
     {
-        $this->recurringCharge -= ($amount * 10);
+        $this->recurringCharge -= ($amount * 100);
     }
 
     /**
@@ -180,7 +180,7 @@ class Account
      */
     public function getRecurringCharge()
     {
-        return $this->recurringCharge / 10;
+        return (float) ($this->recurringCharge / 100);
     }
 
     /**

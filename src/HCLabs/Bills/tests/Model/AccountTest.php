@@ -304,5 +304,27 @@ class AccountTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($dateOpened->add(new \DateInterval('P1Y')), $account->dateToClose());
     }
+
+    /**
+     * @test
+     */
+    public function it_should_convert_charge_from_float_to_int_and_back()
+    {
+        $dateOpened = new \DateTime('now');
+        $account = Account::open(
+            $this->createServicesAndCompany(),
+            '1234',
+            50.00,
+            $dateOpened,
+            (new Monthly)->getBillingIntervalString()
+        );
+
+        $accountReflection = new \ReflectionClass($account);
+        $chargeProperty = $accountReflection->getProperty('recurringCharge');
+        $chargeProperty->setAccessible(true);
+
+        $this->assertSame(5000, $chargeProperty->getValue($account));
+        $this->assertSame(50.00, $account->getRecurringCharge());
+    }
 }
  
