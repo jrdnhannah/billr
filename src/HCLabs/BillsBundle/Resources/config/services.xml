@@ -13,5 +13,12 @@
                  factory-method="getRepository">
             <argument>HCLabs\Bills\Model\Account</argument>
         </service>
+
+        <service id="hclabs_bills.repository.bill"
+                 class="%doctrine.object_repository.class%"
+                 factory-service="doctrine"
+                 factory-method="getRepository">
+            <argument>HCLabs\Bills\Model\Bill</argument>
+        </service>
     </services>
 </container>

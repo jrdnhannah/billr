@@ -13,14 +13,20 @@ class DashboardControllerTest extends \PHPUnit_Framework_TestCase
         $templating = $this->getTemplatingMock();
         $templating->expects($this->once())
                     ->method('render')
-                    ->with('@HCLabsBills/Dashboard/index.html.twig', ['accounts' => []]);
+                    ->with('@HCLabsBills/Dashboard/index.html.twig', ['accounts' => [], 'upcoming_bills' => []]);
 
-        $repository = $this->getRepositoryMock();
-        $repository->expects($this->once())
+        $accountRepository = $this->getRepositoryMock();
+        $accountRepository->expects($this->once())
                    ->method('findAll')
                    ->willReturn([]);
 
-        $controller = new DashboardController($templating, $repository);
+        $billRepository = $this->getBillRepositoryMock();
+        $billRepository->expects($this->once())
+                    ->method('findBillsDue')
+                    ->with(new \DateInterval('P1M'))
+                    ->willReturn([]);
+
+        $controller = new DashboardController($templating, $accountRepository, $billRepository);
         $response   = $controller->indexAction();
 
         $this->assertInstanceOf('\Symfony\Component\HttpFoundation\Response', $response);
@@ -40,6 +46,14 @@ class DashboardControllerTest extends \PHPUnit_Framework_TestCase
     private function getRepositoryMock()
     {
         return $this->getMockForAbstractClass('\HCLabs\Bills\Model\Repository\AccountRepository');
+    }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    private function getBillRepositoryMock()
+    {
+        return $this->getMockForAbstractClass('\HCLabs\Bills\Model\Repository\BillRepository');
     }
 }
  

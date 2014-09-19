@@ -14,6 +14,7 @@
                  class="%hclabs_bills.controller.dashboard_controller.class%">
             <argument type="service" id="twig" />
             <argument type="service" id="hclabs_bills.repository.account" />
+            <argument type="service" id="hclabs_bills.repository.bill" />
         </service>
 
         <service id="hclabs_bills.controller.service_controller"

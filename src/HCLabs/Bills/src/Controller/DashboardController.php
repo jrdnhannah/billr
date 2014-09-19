@@ -3,6 +3,7 @@
 namespace HCLabs\Bills\Controller;
 
 use HCLabs\Bills\Model\Repository\AccountRepository;
+use HCLabs\Bills\Model\Repository\BillRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class DashboardController
@@ -13,14 +14,22 @@ class DashboardController
     /** @var AccountRepository */
     private $accountRepository;
 
+    /** @var BillRepository */
+    private $billRepository;
+
     /**
      * @param \Twig_Environment $templating
      * @param AccountRepository $accountRepository
+     * @param BillRepository $billRepository
      */
-    public function __construct(\Twig_Environment $templating, AccountRepository $accountRepository)
-    {
+    public function __construct(
+        \Twig_Environment $templating,
+        AccountRepository $accountRepository,
+        BillRepository $billRepository
+    ) {
         $this->templating        = $templating;
         $this->accountRepository = $accountRepository;
+        $this->billRepository    = $billRepository;
     }
 
     /**
@@ -29,11 +38,12 @@ class DashboardController
     public function indexAction()
     {
         $accounts = $this->accountRepository->findAll();
+        $upcomingBills = $this->billRepository->findBillsDue(new \DateInterval('P1M'));
 
         return new Response(
             $this->templating->render(
                 '@HCLabsBills/Dashboard/index.html.twig',
-                ['accounts' => $accounts]
+                ['accounts' => $accounts, 'upcoming_bills' => $upcomingBills]
             )
         );
     }
