@@ -39,5 +39,31 @@ class Bill
         $this->datePaid = new \DateTime('now');
     }
 
+    /**
+     * @return Account
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmountDue()
+    {
+        return (float) ($this->amount / 100);
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasBeenPaid()
+    {
+        if (null === $this->datePaid) {
+            return false;
+        }
+
+        return true;
     }
 }
