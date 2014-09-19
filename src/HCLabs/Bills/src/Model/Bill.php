@@ -14,7 +14,7 @@ class Bill
     private $account;
 
     /** @var \DateTime */
-    private $dueDate;
+    private $dateDue;
 
     /** @var bool */
     private $paid;
@@ -26,15 +26,15 @@ class Bill
 
     /**
      * @param Account $account
-     * @param \DateTime $dueDate
+     * @param \DateTime $dateDue
      * @return Bill
      */
-    public static function create(Account $account, \DateTime $dueDate)
+    public static function create(Account $account, \DateTime $dateDue)
     {
         $bill = new Bill;
         $bill->account = $account;
         $bill->amount  = $account->getRecurringCharge() * 10;
-        $bill->dueDate = $dueDate;
+        $bill->dateDue = $dateDue;
 
         return $bill;
     }
