@@ -16,13 +16,8 @@ class Bill
     /** @var \DateTime */
     private $dateDue;
 
-    /** @var bool */
-    private $paid;
-
-    private function __construct()
-    {
-        $this->paid = false;
-    }
+    /** @var \DateTime */
+    private $datePaid;
 
     /**
      * @param Account $account
@@ -41,6 +36,8 @@ class Bill
 
     public function pay()
     {
-        $this->paid = true;
+        $this->datePaid = new \DateTime('now');
+    }
+
     }
 }
