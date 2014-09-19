@@ -1,0 +1,17 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+    <entity name="HCLabs\Bills\Model\Bill"
+            repository-class="HCLabs\Bills\Model\Repository\Doctrine\BillRepository">
+        <id name="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="amount"    column="amount"     type="integer" />
+        <field name="dateDue"   column="date_due"   type="datetime"/>
+        <field name="datePaid"  column="date_paid"  type="datetime"     nullable="true"/>
+
+        <many-to-one target-entity="Account" field="account"/>
+    </entity>
+</doctrine-mapping>
