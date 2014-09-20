@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<serializer>
+    <class name="HCLabs\Bills\Model\Bill" exclusion-policy="ALL" read-only="false">
+        <xml-namespace prefix="atom" uri="http://www.w3.org/2005/Atom"/>
+        <property name="id"
+                  expose="true"
+                  type="integer"
+                  access-type="public_method"
+                  accessor-getter="getId"
+                  read-only="true" />
+
+        <virtual-property method="hasBeenPaid"
+                          name="paid"
+                          expose="true"
+                          type="boolean"
+                          read-only="true" />
+
+    </class>
+</serializer>

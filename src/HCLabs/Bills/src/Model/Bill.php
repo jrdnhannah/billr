@@ -39,6 +39,11 @@ class Bill
         $this->datePaid = new \DateTime('now');
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * @return Account
      */
