@@ -2,6 +2,8 @@
 
 namespace HCLabs\Bills\Model;
 
+use HCLabs\Bills\Value\Money;
+
 class Bill
 {
     /** @var int */
@@ -28,7 +30,7 @@ class Bill
     {
         $bill = new Bill;
         $bill->account = $account;
-        $bill->amount  = (int) ($account->getRecurringCharge() * 100);
+        $bill->amount  = $account->getRecurringCharge()->toInt();
         $bill->dateDue = $dateDue;
 
         return $bill;
@@ -53,11 +55,11 @@ class Bill
     }
 
     /**
-     * @return int
+     * @return Money
      */
     public function getAmountDue()
     {
-        return (float) ($this->amount / 100);
+        return Money::fromInteger($this->amount);
     }
 
     /**

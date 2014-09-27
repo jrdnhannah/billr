@@ -6,6 +6,8 @@ namespace HCLabs\Bills\Tests\Model;
 use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Bill;
 use HCLabs\Bills\Model\Service;
+use HCLabs\Bills\Value\BillingPeriod;
+use HCLabs\Bills\Value\Money;
 
 class BillTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +16,6 @@ class BillTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_create_correctly()
     {
-        $account = $this->getAccountMock();
         $dateDue = new \DateTime('now +7 days');
 
         $account = $this->getAccount();
@@ -53,7 +54,13 @@ class BillTest extends \PHPUnit_Framework_TestCase
 
     private function getAccount()
     {
-        return Account::open(Service::fromName('foo'), 'abc123', 50.00, new \DateTime('now'), 'P2Y');
+        return Account::open(
+            Service::fromName('foo'),
+            'abc123',
+            Money::fromFloat(50.00),
+            new \DateTime('now'),
+            new BillingPeriod('P2Y')
+        );
     }
 }
  
