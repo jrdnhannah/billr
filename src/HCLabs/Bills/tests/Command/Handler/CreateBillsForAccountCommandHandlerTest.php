@@ -3,9 +3,15 @@
 namespace HCLabs\Bills\Tests\Command\Handler;
 
 
+use HCLabs\Bills\Billing\BillingPeriod\Monthly;
 use HCLabs\Bills\Command\CreateBillsForAccountCommand;
 use HCLabs\Bills\Command\Handler\CreateBillsForAccountCommandHandler;
+use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Bill;
+use HCLabs\Bills\Model\Service;
+use HCLabs\Bills\Value\AccountId;
+use HCLabs\Bills\Value\BillingPeriod;
+use HCLabs\Bills\Value\Money;
 
 class CreateBillsForAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +20,7 @@ class CreateBillsForAccountCommandHandlerTest extends \PHPUnit_Framework_TestCas
      */
     public function it_should_create_a_bill_for_every_date_period()
     {
-        $account = $this->getAccountMock();
+        $account = $this->getAccount();
         $registry = $this->getRegistryMock();
         $em = $this->getEntityManagerMock();
         $dispatcher = $this->getEventDispatcherMock();
@@ -25,17 +31,6 @@ class CreateBillsForAccountCommandHandlerTest extends \PHPUnit_Framework_TestCas
                  ->method('getManagerForClass')
                  ->willReturn($em);
 
-        $account->expects($this->once())
-                ->method('getBillingStartDate')
-                ->willReturn(new \DateTime('now'));
-
-        $account->expects($this->once())
-                ->method('getBillingInterval')
-                ->willReturn(new \DateInterval('P1M'));
-
-        $account->expects($this->once())
-                ->method('dateToClose')
-                ->willReturn(new \DateTime('now +2 months'));
 
         $em->expects($this->exactly(2))
             ->method('persist')
@@ -74,13 +69,20 @@ class CreateBillsForAccountCommandHandlerTest extends \PHPUnit_Framework_TestCas
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return Account
      */
-    private function getAccountMock()
+    private function getAccount()
     {
-        return $this->getMockBuilder('\HCLabs\Bills\Model\Account')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+        $service = Service::fromName('FooBar');
+        return Account::open(
+            $service,
+            new AccountId('abc123'),
+            Money::fromFloat(50.00),
+            new \DateTime('now'),
+            new BillingPeriod((new Monthly())->getBillingIntervalString()),
+            null,
+            new \DateTime('now +2 months')
+        );
     }
 
     /**
