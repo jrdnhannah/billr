@@ -24,8 +24,7 @@ class CreateBillsForAccountCommandHandlerTest extends \PHPUnit_Framework_TestCas
         $registry = $this->getRegistryMock();
         $em = $this->getEntityManagerMock();
         $dispatcher = $this->getEventDispatcherMock();
-        $command = new CreateBillsForAccountCommand;
-        $command->account = $account;
+        $command = new CreateBillsForAccountCommand($account);
 
         $registry->expects($this->once())
                  ->method('getManagerForClass')

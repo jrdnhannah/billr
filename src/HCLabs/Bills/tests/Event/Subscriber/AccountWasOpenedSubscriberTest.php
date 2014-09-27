@@ -18,8 +18,7 @@ class AccountWasOpenedSubscriberTest extends \PHPUnit_Framework_TestCase
         $subscriber       = new AccountWasOpenedSubscriber($bus);
         $account          = $this->getAccountMock();
         $event            = new AccountWasOpenedEvent($account);
-        $command          = new CreateBillsForAccountCommand;
-        $command->account = $account;
+        $command          = new CreateBillsForAccountCommand($account);
 
         $bus->expects($this->once())
             ->method('execute')

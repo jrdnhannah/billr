@@ -34,8 +34,7 @@ class AccountWasOpenedSubscriber implements EventSubscriberInterface
      */
     public function onAccountOpened(AccountWasOpenedEvent $e)
     {
-        $command = new CreateBillsForAccountCommand;
-        $command->account = $e->getAccount();
+        $command = new CreateBillsForAccountCommand($e->getAccount());
 
         $this->commandBus->execute($command);
     }

@@ -2,8 +2,23 @@
 
 namespace HCLabs\Bills\Command;
 
+use HCLabs\Bills\Model\Account;
+
 class CreateBillsForAccountCommand
 {
     /** @var \HCLabs\Bills\Model\Account */
-    public $account;
+    private $account;
+
+    function __construct(Account $account)
+    {
+        $this->account = $account;
+    }
+
+    /**
+     * @return Account
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
 }

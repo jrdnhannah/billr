@@ -26,7 +26,7 @@ class CreateBillsForAccountCommandHandler implements CommandHandler
     public function handle($command)
     {
         $manager        = $this->doctrine->getManagerForClass('HCLabs\Bills\Model\Bill');
-        $account        = $command->account;
+        $account        = $command->getAccount();
         $billingPeriod  = new \DatePeriod($account->getBillingStartDate(),
                                           $account->getBillingInterval(),
                                           $account->dateToClose());
