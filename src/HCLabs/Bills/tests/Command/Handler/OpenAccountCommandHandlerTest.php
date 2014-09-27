@@ -7,6 +7,7 @@ use HCLabs\Bills\Command\Handler\OpenAccountCommandHandler;
 use HCLabs\Bills\Command\OpenAccountCommand;
 use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Service;
+use HCLabs\Bills\Value\AccountId;
 use HCLabs\Bills\Value\BillingPeriod;
 use HCLabs\Bills\Value\Money;
 
@@ -79,7 +80,7 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
     {
         return new OpenAccountCommand(
             Service::fromName('Hammers for Rental'),
-            'abc123',
+            new AccountId('abc123'),
             Money::fromFloat(25.00),
             new \DateTime('now'),
             new BillingPeriod((new Monthly)->getBillingIntervalString())
