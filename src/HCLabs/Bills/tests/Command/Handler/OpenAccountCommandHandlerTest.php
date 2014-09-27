@@ -7,6 +7,8 @@ use HCLabs\Bills\Command\Handler\OpenAccountCommandHandler;
 use HCLabs\Bills\Command\OpenAccountCommand;
 use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Service;
+use HCLabs\Bills\Value\BillingPeriod;
+use HCLabs\Bills\Value\Money;
 
 class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,11 +26,11 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
         $command = $this->configureOpenAccountCommand();
 
         $account = Account::open(
-            $command->service,
-            $command->accountNumber,
-            $command->recurringCharge,
-            $command->dateOpened,
-            $command->billingPeriod
+            $command->getService(),
+            $command->getAccountNumber(),
+            $command->getRecurringCharge(),
+            $command->getDateOpened(),
+            $command->getBillingPeriod()
         );
 
         $entityManager->expects($this->once())
@@ -75,14 +77,13 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
      */
     private function configureOpenAccountCommand()
     {
-        $command = new OpenAccountCommand;
-        $command->billingPeriod = (new Monthly)->getBillingIntervalString();
-        $command->service = Service::fromName('Hammers for Rental');
-        $command->accountNumber = 'abc123';
-        $command->dateOpened = new \DateTime('now');
-        $command->recurringCharge = 25.00;
-
-        return $command;
+        return new OpenAccountCommand(
+            Service::fromName('Hammers for Rental'),
+            'abc123',
+            Money::fromFloat(25.00),
+            new \DateTime('now'),
+            new BillingPeriod((new Monthly)->getBillingIntervalString())
+        );
     }
 
     /**

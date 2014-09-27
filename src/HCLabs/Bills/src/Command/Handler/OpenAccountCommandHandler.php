@@ -28,11 +28,11 @@ class OpenAccountCommandHandler implements CommandHandler
     public function handle($command)
     {
         $account = Account::open(
-            $command->service,
-            $command->accountNumber,
-            $command->recurringCharge,
-            $command->dateOpened,
-            $command->billingPeriod
+            $command->getService(),
+            $command->getAccountNumber(),
+            $command->getRecurringCharge(),
+            $command->getDateOpened(),
+            $command->getBillingPeriod()
         );
 
         $manager = $this->registry->getManagerForClass(get_class($account));
