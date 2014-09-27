@@ -4,6 +4,7 @@ namespace HCLabs\Bills\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use HCLabs\Bills\Value\CompanyName;
 
 class Company
 {
@@ -16,32 +17,29 @@ class Company
     /** @var Service[]|Collection */
     private $services;
 
-    private function __construct()
+    private function __construct(CompanyName $name)
     {
         $this->services = new ArrayCollection;
+        $this->name = (string) $name;
     }
 
     /**
-     * @param  string   $name
+     * @param  CompanyName     $name
      * @return Company
      */
-    public static function createWithoutServices($name)
+    public static function createWithoutServices(CompanyName $name)
     {
-        $company = new Company;
-        $company->name = $name;
-
-        return $company;
+        return new self($name);
     }
 
     /**
-     * @param string    $name
+     * @param CompanyName      $name
      * @param Service[] $services
      * @return Company
      */
-    public static function createAndOfferServices($name, array $services = array())
+    public static function createAndOfferServices(CompanyName $name, array $services = array())
     {
-        $company = new Company;
-        $company->name = $name;
+        $company = new self($name);
 
         foreach ($services as $service) {
             $company->offerService($service);
@@ -51,11 +49,11 @@ class Company
     }
 
     /**
-     * @return string
+     * @return CompanyName
      */
     public function getName()
     {
-        return $this->name;
+        return new CompanyName($this->name);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace HCLabs\Bills\Tests\Model;
 
 use HCLabs\Bills\Model\Company;
 use HCLabs\Bills\Model\Service;
+use HCLabs\Bills\Value\CompanyName;
 
 class CompanyTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,9 +18,12 @@ class CompanyTest extends \PHPUnit_Framework_TestCase
             Service::fromName('Saws for Renting')
         ];
 
-        $company = Company::createAndOfferServices('Acme', $services);
+        $company = Company::createAndOfferServices(
+            new CompanyName('Acme'),
+            $services
+        );
 
-        $this->assertEquals('Acme', $company->getName());
+        $this->assertEquals(new CompanyName('Acme'), $company->getName());
         $this->assertEquals($services, $company->getOfferedServices()->toArray());
     }
 
@@ -28,7 +32,7 @@ class CompanyTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_be_able_to_offer_services_after_instantiation()
     {
-        $company = Company::createWithoutServices('Acme');
+        $company = Company::createWithoutServices(new CompanyName('Acme'));
 
         $this->assertEquals(new \Doctrine\Common\Collections\ArrayCollection, $company->getOfferedServices());
 
