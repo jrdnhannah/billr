@@ -4,8 +4,9 @@ namespace HCLabs\Bills\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use HCLabs\Bills\Billing\BillingPeriod\BillingPeriod;
 use HCLabs\Bills\Exception\InvalidDateIntervalSpecException;
+use HCLabs\Bills\Value\BillingPeriod;
+use HCLabs\Bills\Value\Money;
 
 class Account
 {
@@ -46,15 +47,22 @@ class Account
      *
      * @param Service        $service
      * @param string         $accountNumber
-     * @param double         $recurringCharge
+     * @param Money          $recurringCharge
      * @param \DateTime      $dateOpened
      * @param \DateTime      $billingStartDate
-     * @param string         $billingPeriod
+     * @param BillingPeriod  $billingPeriod
      * @param \DateTime      $closureDate
      * @return \HCLabs\Bills\Model\Account
      */
-    public static function open(Service $service, $accountNumber, $recurringCharge, \DateTime $dateOpened, $billingPeriod, \DateTime $billingStartDate = null, \DateTime $closureDate = null)
-    {
+    public static function open(
+        Service $service,
+        $accountNumber,
+        Money $recurringCharge,
+        \DateTime $dateOpened,
+        BillingPeriod $billingPeriod,
+        \DateTime $billingStartDate = null,
+        \DateTime $closureDate = null
+    ) {
         if (null === $billingStartDate) {
             $billingStartDate = $dateOpened;
         }
@@ -68,11 +76,11 @@ class Account
         $account = new Account;
         $account->service          = $service;
         $account->accountNumber    = $accountNumber;
-        $account->recurringCharge  = (int) ($recurringCharge * 100);
+        $account->recurringCharge  = $recurringCharge->toInt();
         $account->dateOpened       = $dateOpened;
         $account->billingStartDate = $billingStartDate;
         $account->dateClosed       = $closureDate;
-        $account->billingInterval  = $billingPeriod;
+        $account->billingInterval  = (string) $billingPeriod;
 
         return $account;
     }
@@ -176,11 +184,11 @@ class Account
     }
 
     /**
-     * @return double
+     * @return Money
      */
     public function getRecurringCharge()
     {
-        return (float) ($this->recurringCharge / 100);
+        return Money::fromInteger((int) $this->recurringCharge);
     }
 
     /**
