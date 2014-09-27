@@ -12,6 +12,7 @@ use HCLabs\Bills\Model\Service;
 use HCLabs\Bills\Value\AccountId;
 use HCLabs\Bills\Value\BillingPeriod;
 use HCLabs\Bills\Value\Money;
+use HCLabs\Bills\Value\ProvidedService;
 
 class CreateBillsForAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -72,7 +73,7 @@ class CreateBillsForAccountCommandHandlerTest extends \PHPUnit_Framework_TestCas
      */
     private function getAccount()
     {
-        $service = Service::fromName('FooBar');
+        $service = Service::fromName(new ProvidedService('FooBar'));
         return Account::open(
             $service,
             new AccountId('abc123'),

@@ -5,6 +5,7 @@ namespace HCLabs\Bills\Tests\Model;
 use HCLabs\Bills\Model\Company;
 use HCLabs\Bills\Model\Service;
 use HCLabs\Bills\Value\CompanyName;
+use HCLabs\Bills\Value\ProvidedService;
 
 class CompanyTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,8 +15,8 @@ class CompanyTest extends \PHPUnit_Framework_TestCase
     public function it_should_have_a_name_and_offer_two_services()
     {
         $services = [
-            Service::fromName('Hammers for Renting'),
-            Service::fromName('Saws for Renting')
+            Service::fromName(new ProvidedService('Hammers for Renting')),
+            Service::fromName(new ProvidedService('Saws for Renting'))
         ];
 
         $company = Company::createAndOfferServices(
@@ -36,7 +37,10 @@ class CompanyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(new \Doctrine\Common\Collections\ArrayCollection, $company->getOfferedServices());
 
-        $service = Service::offer('Hammers for Renting', $company);
+        $service = Service::offer(
+            new ProvidedService('Hammers for Renting'),
+            $company
+        );
         $company->offerService($service);
 
         $services = new \Doctrine\Common\Collections\ArrayCollection([$service]);

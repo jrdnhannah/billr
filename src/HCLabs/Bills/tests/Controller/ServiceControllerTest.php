@@ -4,6 +4,7 @@ namespace HCLabs\Bills\Tests\Controller;
 
 use HCLabs\Bills\Controller\ServiceController;
 use HCLabs\Bills\Model\Service;
+use HCLabs\Bills\Value\ProvidedService;
 
 class ServiceControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +13,7 @@ class ServiceControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_return_view_service()
     {
-        $service = Service::fromName('Hammer Rentals');
+        $service = Service::fromName(new ProvidedService('Hammer Rentals'));
 
         $templating = $this->getTemplatingMock();
         $templating->expects($this->once())

@@ -2,6 +2,9 @@
 
 namespace HCLabs\Bills\Model;
 
+use HCLabs\Bills\Value\Name;
+use HCLabs\Bills\Value\ProvidedService;
+
 class Service
 {
     /** @var int */
@@ -13,30 +16,28 @@ class Service
     /** @var string */
     private $serviceProvided;
 
-    private function __construct()
+    private function __construct(ProvidedService $service)
     {
+        $this->serviceProvided = (string) $service;
     }
 
     /**
-     * @param  string   $name
+     * @param ProvidedService $service
      * @return Service
      */
-    public static function fromName($name)
+    public static function fromName(ProvidedService $service)
     {
-        $service = new Service;
-        $service->serviceProvided = $name;
-
-        return $service;
+        return new self($service);
     }
 
     /**
-     * @param string    $providedService
-     * @param Company   $company
+     * @param ProvidedService $service
+     * @param Company $company
      * @return Service
      */
-    public static function offer($providedService, Company $company)
+    public static function offer(ProvidedService $service, Company $company)
     {
-        $service = self::fromName($providedService);
+        $service = new self($service);
         $service->company = $company;
 
         return $service;
@@ -55,7 +56,7 @@ class Service
      */
     public function getProvidedService()
     {
-        return $this->serviceProvided;
+        return (string) $this->serviceProvided;
     }
 
     /**

@@ -10,6 +10,7 @@ use HCLabs\Bills\Model\Service;
 use HCLabs\Bills\Value\AccountId;
 use HCLabs\Bills\Value\BillingPeriod;
 use HCLabs\Bills\Value\Money;
+use HCLabs\Bills\Value\ProvidedService;
 
 class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -79,7 +80,7 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
     private function configureOpenAccountCommand()
     {
         return new OpenAccountCommand(
-            Service::fromName('Hammers for Rental'),
+            Service::fromName(new ProvidedService('Hammers for Rental')),
             new AccountId('abc123'),
             Money::fromFloat(25.00),
             new \DateTime('now'),

@@ -15,8 +15,8 @@ class AccountTest extends \PHPUnit_Framework_TestCase
      */
     private function createServicesAndCompany()
     {
-        $company = Company::createWithoutServices('Acme');
-        return Service::offer('Hammers for Rental', $company);
+        $company = Company::createWithoutServices(new Value\CompanyName('Acme'));
+        return Service::offer(new Value\ProvidedService('Hammers for Rental'), $company);
     }
 
     /**

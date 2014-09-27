@@ -9,6 +9,7 @@ use HCLabs\Bills\Model\Service;
 use HCLabs\Bills\Value\AccountId;
 use HCLabs\Bills\Value\BillingPeriod;
 use HCLabs\Bills\Value\Money;
+use HCLabs\Bills\Value\ProvidedService;
 
 class BillTest extends \PHPUnit_Framework_TestCase
 {
@@ -56,7 +57,7 @@ class BillTest extends \PHPUnit_Framework_TestCase
     private function getAccount()
     {
         return Account::open(
-            Service::fromName('foo'),
+            Service::fromName(new ProvidedService('foo')),
             new AccountId('abc123'),
             Money::fromFloat(50.00),
             new \DateTime('now'),
