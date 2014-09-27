@@ -4,7 +4,7 @@ namespace HCLabs\Bills\Value;
 
 use HCLabs\Bills\Exception\InvalidDateIntervalSpecException;
 
-class BillingPeriod
+final class BillingPeriod
 {
     /** @var string */
     private $billingPeriod;
