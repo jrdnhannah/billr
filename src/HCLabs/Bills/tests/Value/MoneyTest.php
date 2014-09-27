@@ -9,9 +9,9 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_should_convert_amount_to_integer_internally()
+    public function it_should_convert_floats_to_integer_internally()
     {
-        $money = new DTO\Money(12.99);
+        $money = DTO\Money::fromFloat(12.99);
         $reflection = new \ReflectionClass($money);
         $amount = $reflection->getProperty('amount');
         $amount->setAccessible(true);
@@ -25,7 +25,7 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_produce_integer_and_double_amounts()
     {
-        $money = new DTO\Money(12.99);
+        $money = DTO\Money::fromFloat(12.99);
 
         $this->assertInternalType('int', $money->toInt());
         $this->assertSame(1299, $money->toInt());
@@ -37,11 +37,15 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_should_only_accept_floats()
+    public function it_should_only_accept_floats_and_integers()
     {
-        $this->setExpectedException('\Assert\InvalidArgumentException');
+        $money1 = DTO\Money::fromFloat(12.99);
+        $this->assertSame(12.99, $money1->toFloat());
+        $this->assertSame(1299, $money1->toInt());
 
-        new DTO\Money(1234);
+        $money2 = DTO\Money::fromInteger(1599);
+        $this->assertSame(15.99, $money2->toFloat());
+        $this->assertSame(1599, $money2->toInt());
     }
 }
  

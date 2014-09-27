@@ -7,10 +7,32 @@ final class Money
     /** @var integer */
     private $amount;
 
-    public function __construct($amount)
+    /**
+     * @param int $amount
+     */
+    private function __construct($amount)
+    {
+        \Assert\that($amount)->integer();
+        $this->amount = $amount;
+    }
+
+    /**
+     * @param  int $amount
+     * @return Money
+     */
+    public static function fromInteger($amount)
+    {
+        return new self($amount);
+    }
+
+    /**
+     * @param  float $amount
+     * @return Money
+     */
+    public static function fromFloat($amount)
     {
         \Assert\that($amount)->float();
-        $this->amount = (int) ($amount * 100);
+        return new self((int) ($amount * 100));
     }
 
     /**
