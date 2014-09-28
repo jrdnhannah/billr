@@ -72,8 +72,6 @@ class Account
             $closureDate = $dateOpened->add(new \DateInterval('P1Y'));
         }
 
-        self::guardAgainstBadDateIntervalSpec($billingPeriod);
-
         $account = new Account;
         $account->service          = $service;
         $account->accountNumber    = (string) $accountNumber;
@@ -84,19 +82,6 @@ class Account
         $account->billingInterval  = (string) $billingPeriod;
 
         return $account;
-    }
-
-    /**
-     * @param $billingPeriod
-     * @throws InvalidDateIntervalSpecException
-     */
-    private static function guardAgainstBadDateIntervalSpec($billingPeriod)
-    {
-        try {
-            new \DateInterval($billingPeriod);
-        } catch (\Exception $e) {
-            throw new InvalidDateIntervalSpecException;
-        }
     }
 
     /**
