@@ -2,7 +2,7 @@
 
 namespace HCLabs\Bills\Command\Handler;
 
-interface CommandHandler
+interface CommandHandlerInterface
 {
     public function handle($command);
 }
