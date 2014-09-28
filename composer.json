@@ -23,7 +23,7 @@
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "sensio/distribution-bundle": "~3.0",
         "sensio/framework-extra-bundle": "~3.0",
-        "jms/serializer": "dev-master"
+        "beberlei/assert": "~2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
