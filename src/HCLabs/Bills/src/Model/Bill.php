@@ -67,10 +67,6 @@ class Bill
      */
     public function hasBeenPaid()
     {
-        if (null === $this->datePaid) {
-            return false;
-        }
-
-        return true;
+        return !!$this->datePaid;
     }
 }
