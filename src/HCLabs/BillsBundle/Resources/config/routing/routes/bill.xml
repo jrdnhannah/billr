@@ -4,10 +4,8 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <import resource="routes/account.xml" prefix="/account"/>
-    <import resource="routes/bill.xml" prefix="/bill" />
-
-    <route id="hclabs_bills.dashboard_controller.index" path="/">
-        <default key="_controller">hclabs_bills.controller.dashboard_controller:indexAction</default>
+    <route id="hclabs_bills.bill_controller.pay" path="/{bill}/pay">
+        <default key="_controller">hclabs_bills.controller.bill_controller:payAction</default>
     </route>
+
 </routes>
