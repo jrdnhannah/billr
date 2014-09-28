@@ -52,11 +52,11 @@ class Service
     }
 
     /**
-     * @return string
+     * @return ProvidedService
      */
     public function getProvidedService()
     {
-        return (string) $this->serviceProvided;
+        return new ProvidedService($this->serviceProvided);
     }
 
     /**
@@ -64,6 +64,6 @@ class Service
      */
     public function __toString()
     {
-        return $this->getProvidedService();
+        return (string) $this->getProvidedService();
     }
 }
