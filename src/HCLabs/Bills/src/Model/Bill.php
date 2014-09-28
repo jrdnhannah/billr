@@ -2,6 +2,7 @@
 
 namespace HCLabs\Bills\Model;
 
+use HCLabs\Bills\Exception\BillAlreadyPaidException;
 use HCLabs\Bills\Value\Money;
 
 class Bill
@@ -38,6 +39,10 @@ class Bill
 
     public function pay()
     {
+        if (!!$this->datePaid) {
+            throw new BillAlreadyPaidException;
+        }
+
         $this->datePaid = new \DateTime('now');
     }
 

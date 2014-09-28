@@ -41,17 +41,54 @@ class BillTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(5000, $amountProperty->getValue($bill));
         $this->assertSame($dateDue, $dateDueProperty->getValue($bill));
         $this->assertNull($datePaidProperty->getValue($bill));
-
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @test
      */
-    private function getAccountMock()
+    public function it_should_store_the_date_paid()
     {
-        return $this->getMockBuilder('\HCLabs\Bills\Model\Account')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+        $account = $this->getAccount();
+        $bill = Bill::create($account, new \DateTime('now'));
+
+        $billReflection = new \ReflectionClass($bill);
+        $paidProperty = $billReflection->getProperty('datePaid');
+        $paidProperty->setAccessible(true);
+        $this->assertNull($paidProperty->getValue($bill));
+
+        $bill->pay();
+
+        $paidDate = $paidProperty->getValue($bill);
+
+        $now = new \DateTime('now');
+
+        // not going to be equal to the millisecond
+        $this->assertInstanceOf('\DateTime', $paidDate);
+        $this->assertEquals($now->format('d/m/Y h:i:s'), $paidDate->format('d/m/Y h:i:s'));
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_throw_an_exception_if_already_paid()
+    {
+        $this->setExpectedException('\HCLabs\Bills\Exception\BillAlreadyPaidException');
+        $bill = Bill::create($this->getAccount(), new \DateTime('now'));
+
+        $bill->pay();
+        $bill->pay();
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_correctly_report_payment_status()
+    {
+        $bill = Bill::create($this->getAccount(), new \DateTime('now'));
+
+        $this->assertSame(false, $bill->hasBeenPaid());
+        $bill->pay();
+        $this->assertSame(true, $bill->hasBeenPaid());
     }
 
     private function getAccount()
