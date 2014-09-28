@@ -3,24 +3,67 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block body %}
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Company</th>
-            <th>Service</th>
-            <th>Price</th>
-            <th>Billing Period</th>
-            <th>Next Bill</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for account in accounts %}
+<div class="row">
+    <div class="col-lg-6">
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td>{{ account.service.company.name }}</td>
-                <td>{{ account.service.providedService }}</td>
-                <td>&pound;{{ account.recurringCharge }}</td>
+                <th>Company</th>
+                <th>Service</th>
+                <th>Price</th>
+                <th>Billing Period</th>
+                <th>Next Bill</th>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+            {% for account in accounts %}
+                <tr>
+                    <td>{{ account.service.company.name }}</td>
+                    <td>{{ account.service.providedService }}</td>
+                    <td>&pound;{{ account.recurringCharge }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-4 col-lg-offset-1" id="upcoming-bills">
+        <ul>
+            {% for bill in upcoming_bills %}
+                <li>
+                    {{ bill.account.service.company.name }} - {{ bill.account.service.providedService }}<br />
+                    Amount: &pound;{{ bill.amountDue }}<br />
+                    <a href="{{ path('hclabs_bills.bill_controller.pay', {'bill': bill.id}) }}" class="btn btn-primary pay-bill">
+                        Pay
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock %}
+
+{% block inline_scripts -%}
+    <script type="text/javascript">
+        $('document').ready(function(e) {
+            $('div#upcoming-bills').on('click', 'a.pay-bill', function(e) {
+                e.preventDefault();
+                var     url = $(this).attr('href'),
+                        $li = $(this).parent('li');
+
+                $.ajax({
+                    url: url,
+                    type: 'PUT',
+                    success: function () {
+                        $li.fadeOut();
+                    },
+                    error: function (xhr) {
+                        var error = xhr.responseJSON;
+                        // TODO: Implement slide down message above bills due
+                        console.log(error.message);
+                    }
+                });
+            });
+        });
+    </script>
+{%- endblock %}
