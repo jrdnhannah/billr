@@ -6,26 +6,14 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use HCLabs\Bills\Model\Bill;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class CreateBillsForAccountCommandHandler implements CommandHandler
+class CreateBillsForAccountCommandHandler extends AbstractCommandHandler
 {
-    /** @var EventDispatcherInterface */
-    private $dispatcher;
-
-    /** @var Registry */
-    private $doctrine;
-
-    public function __construct(EventDispatcherInterface $dispatcher, Registry $doctrine)
-    {
-        $this->dispatcher = $dispatcher;
-        $this->doctrine   = $doctrine;
-    }
-
     /**
      * @param \HCLabs\Bills\Command\CreateBillsForAccountCommand $command
      */
     public function handle($command)
     {
-        $manager        = $this->doctrine->getManagerForClass('HCLabs\Bills\Model\Bill');
+        $manager        = $this->getEntityManager();
         $account        = $command->getAccount();
         $billingPeriod  = new \DatePeriod($account->getBillingStartDate(),
                                           $account->getBillingInterval(),

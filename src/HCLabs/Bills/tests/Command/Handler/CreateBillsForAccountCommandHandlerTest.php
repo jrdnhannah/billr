@@ -22,14 +22,9 @@ class CreateBillsForAccountCommandHandlerTest extends \PHPUnit_Framework_TestCas
     public function it_should_create_a_bill_for_every_date_period()
     {
         $account = $this->getAccount();
-        $registry = $this->getRegistryMock();
         $em = $this->getEntityManagerMock();
         $dispatcher = $this->getEventDispatcherMock();
         $command = new CreateBillsForAccountCommand($account);
-
-        $registry->expects($this->once())
-                 ->method('getManagerForClass')
-                 ->willReturn($em);
 
 
         $em->expects($this->exactly(2))
@@ -44,18 +39,8 @@ class CreateBillsForAccountCommandHandlerTest extends \PHPUnit_Framework_TestCas
             ->method('flush');
 
 
-        $handler = new CreateBillsForAccountCommandHandler($dispatcher, $registry);
+        $handler = new CreateBillsForAccountCommandHandler($dispatcher, $em);
         $handler->handle($command);
-    }
-
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    private function getRegistryMock()
-    {
-        return $this->getMockBuilder('\Doctrine\Bundle\DoctrineBundle\Registry')
-                    ->disableOriginalConstructor()
-                    ->getMock();
     }
 
     /**

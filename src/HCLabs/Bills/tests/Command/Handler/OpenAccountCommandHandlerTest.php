@@ -19,11 +19,9 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_persist_an_account_to_the_database()
     {
-        $entityManager = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
+        $entityManager = $this->getMockBuilder('\Doctrine\ORM\EntityManagerInterface')
                               ->disableOriginalConstructor()
-                              ->getMock();
-
-        $registry      = $this->getFullRegistryMock($entityManager);
+                              ->getMockForAbstractClass();
 
         $command = $this->configureOpenAccountCommand();
 
@@ -41,24 +39,8 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
         $entityManager->expects($this->once())
                         ->method('flush');
 
-        $handler = new OpenAccountCommandHandler($this->getEventDispatcherMock(), $registry);
+        $handler = new OpenAccountCommandHandler($this->getEventDispatcherMock(), $entityManager);
         $handler->handle($command);
-    }
-
-    /**
-     * @param $entityManagerMock
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    private function getFullRegistryMock($entityManagerMock)
-    {
-        $registry = $this->getRegistryMock();
-
-        $registry->expects($this->once())
-                ->method('getManagerForClass')
-                ->with($this->callback(function($s) { return is_string($s); }))
-                ->willReturn($entityManagerMock);
-
-        return $registry;
     }
 
     /**
