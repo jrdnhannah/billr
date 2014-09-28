@@ -2,18 +2,18 @@
 
 namespace HCLabs\Bills\Command\Bus;
 
-use HCLabs\Bills\Command\Handler\CommandHandler;
+use HCLabs\Bills\Command\Handler\CommandHandlerInterface;
 
 interface CommandBusInterface
 {
     /**
      * Add a command handler
      *
-     * @param CommandHandler $handler
+     * @param CommandHandlerInterface $handler
      * @param string         $commandToHandleClass
      * @return void
      */
-    public function addHandler(CommandHandler $handler, $commandToHandleClass);
+    public function addHandler(CommandHandlerInterface $handler, $commandToHandleClass);
 
     /**
      * Execute a command using all registered handlers
@@ -25,7 +25,7 @@ interface CommandBusInterface
     public function execute($command);
 
     /**
-     * @return CommandHandler[]
+     * @return CommandHandlerInterface[]
      */
     public function getHandlers();
 }

@@ -2,13 +2,13 @@
 
 namespace HCLabs\Bills\Command\Bus;
 
-use HCLabs\Bills\Command\Handler\CommandHandler;
+use HCLabs\Bills\Command\Handler\CommandHandlerInterface;
 use HCLabs\Bills\Exception\CommandAlreadyRegisteredException;
 use HCLabs\Bills\Exception\NoCommandHandlerFoundException;
 
 class CommandBus implements CommandBusInterface
 {
-    /** @var CommandHandler[] */
+    /** @var CommandHandlerInterface[] */
     private $handlers;
 
     public function __construct()
@@ -19,7 +19,7 @@ class CommandBus implements CommandBusInterface
     /**
      * {@inheritdoc}
      */
-    public function addHandler(CommandHandler $handler, $commandToHandleClass)
+    public function addHandler(CommandHandlerInterface $handler, $commandToHandleClass)
     {
         $this->guardAgainstDuplicateCommand($commandToHandleClass);
 

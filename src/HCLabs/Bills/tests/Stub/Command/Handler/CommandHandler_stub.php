@@ -2,9 +2,9 @@
 
 namespace HCLabs\Bills\Tests\Stub\Command\Handler;
 
-use HCLabs\Bills\Command\Handler\CommandHandler;
+use HCLabs\Bills\Command\Handler\CommandHandlerInterface;
 
-class CommandHandler_stub implements CommandHandler
+class CommandHandler_stub implements CommandHandlerInterface
 {
     public $handled = false;
 
