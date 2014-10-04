@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="hclabs_bills.console.create_dbal_event_store.class">HCLabs\Bills\Console\CreateDBALEventStore</parameter>
+    </parameters>
+
+    <services>
+        <service id="hclabs_bills.console.create_dbal_event_store"
+                 class="%hclabs_bills.console.create_dbal_event_store.class%">
+            <argument>billr:event-store:dbal:create-schema</argument>
+            <argument />
+            <argument type="service" id="database_connection" />
+            <tag name="console.command" />
+        </service>
+    </services>
+</container>

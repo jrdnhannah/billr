@@ -21,6 +21,8 @@ class BillsExtension extends ConfigurableExtension implements PrependExtensionIn
         $loader->load('services/command.xml');
         $loader->load('services/form.xml');
         $loader->load('services/event.xml');
+        $loader->load('services/console.xml');
+        $loader->load('services/event_sourcing/dbal_schema_builders.xml');
     }
 
     public function prepend(ContainerBuilder $container)

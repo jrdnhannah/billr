@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="event_sourcing.dbal.schema_builder.bill_was_paid.class">HCLabs\Bills\Event\Store\DBAL\PersistenceBuilder\BillWasPaidBuilder</parameter>
+    </parameters>
+
+    <services>
+        <service id="event_sourcing.dbal.schema_builder.bill_was_paid"
+                 class="%event_sourcing.dbal.schema_builder.bill_was_paid.class%">
+            <tag name="event_sourcing.dbal_schema_builder" />
+        </service>
+    </services>
+</container>
