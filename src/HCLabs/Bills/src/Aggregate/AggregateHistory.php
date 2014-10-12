@@ -27,4 +27,12 @@ class AggregateHistory
     {
         return $this->events;
     }
+
+    /**
+     * @param AggregateHistory $history
+     */
+    public function merge(AggregateHistory $history)
+    {
+        $this->events = array_merge($this->events, $history->getEventHistory());
+    }
 }
