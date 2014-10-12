@@ -1,6 +1,6 @@
 <?php
 
-namespace HCLabs\Bills\Command;
+namespace HCLabs\Bills\Command\Scenario\OpenAccount;
 
 use HCLabs\Bills\Model\Service;
 use HCLabs\Bills\Value\UUID;

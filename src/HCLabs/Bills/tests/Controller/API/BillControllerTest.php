@@ -3,8 +3,8 @@
 namespace HCLabs\Bills\Tests\Controller\API;
 
 use HCLabs\Bills\Command\Bus\CommandBus;
-use HCLabs\Bills\Command\Handler\PayBillCommandHandler;
-use HCLabs\Bills\Command\PayBillCommand;
+use HCLabs\Bills\Command\Scenario\PayBill\PayBillCommandHandler;
+use HCLabs\Bills\Command\Scenario\PayBill\PayBillCommand;
 use HCLabs\Bills\Controller\API\BillController;
 use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Bill;
@@ -46,7 +46,7 @@ class BillControllerTest extends \PHPUnit_Framework_TestCase
 
         $commandBus = new CommandBus;
         $handler    = new PayBillCommandHandler($dispatcherMock, $repository);
-        $commandBus->addHandler($handler, 'HCLabs\Bills\Command\PayBillCommand');
+        $commandBus->addHandler($handler, 'HCLabs\Bills\Command\Scenario\PayBill\PayBillCommand');
         $controller = new BillController($commandBus);
         $bill = $this->getBill();
         $bill->pay();

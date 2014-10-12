@@ -1,10 +1,10 @@
 <?php
 
-namespace HCLabs\Bills\Tests\Command\Handler;
+namespace HCLabs\Bills\Tests\Command\Scenario\OpenAccount;
 
 use HCLabs\Bills\Billing\BillingPeriod\Monthly;
-use HCLabs\Bills\Command\Handler\OpenAccountCommandHandler;
-use HCLabs\Bills\Command\OpenAccountCommand;
+use HCLabs\Bills\Command\Scenario\OpenAccount\OpenAccountCommandHandler;
+use HCLabs\Bills\Command\Scenario\OpenAccount\OpenAccountCommand;
 use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Service;
 use HCLabs\Bills\Tests\Stub\Model\Repository\Doctrine\AccountRepository;

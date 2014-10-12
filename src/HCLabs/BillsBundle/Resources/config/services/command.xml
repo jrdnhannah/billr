@@ -7,11 +7,11 @@
         <parameter key="hclabs_bills.command.command_bus.class">HCLabs\Bills\Command\Bus\CommandBus</parameter>
         <parameter key="hclabs_bills.command.abstract_command_handler.class">HCLabs\Bills\Command\Handler\AbstractCommandHandler</parameter>
 
-        <parameter key="hclabs_bills.command.open_account_command_handler.class">HCLabs\Bills\Command\Handler\OpenAccountCommandHandler</parameter>
-        <parameter key="hclabs_bills.command.pay_bill_command_handler.class">HCLabs\Bills\Command\Handler\PayBillCommandHandler</parameter>
+        <parameter key="hclabs_bills.command.open_account_command_handler.class">HCLabs\Bills\Command\Scenario\OpenAccount\OpenAccountCommandHandler</parameter>
+        <parameter key="hclabs_bills.command.pay_bill_command_handler.class">HCLabs\Bills\Command\Scenario\PayBill\PayBillCommandHandler</parameter>
 
-        <parameter key="hclabs_bills.command.open_account_command.class">HCLabs\Bills\Command\OpenAccountCommand</parameter>
-        <parameter key="hclabs_bills.command.pay_bill_command.class">HCLabs\Bills\Command\PayBillCommand</parameter>
+        <parameter key="hclabs_bills.command.open_account_command.class">HCLabs\Bills\Command\Scenario\OpenAccount\OpenAccountCommand</parameter>
+        <parameter key="hclabs_bills.command.pay_bill_command.class">HCLabs\Bills\Command\Scenario\PayBill\PayBillCommand</parameter>
     </parameters>
 
     <services>

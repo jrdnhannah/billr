@@ -1,7 +1,8 @@
 <?php
 
-namespace HCLabs\Bills\Command\Handler;
+namespace HCLabs\Bills\Command\Scenario\CreateBillsForAccount;
 
+use HCLabs\Bills\Command\Handler\AbstractCommandHandler;
 use HCLabs\Bills\Model\Bill;
 use HCLabs\Bills\Model\Repository\BillRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -19,7 +20,7 @@ class CreateBillsForAccountCommandHandler extends AbstractCommandHandler
     }
 
     /**
-     * @param \HCLabs\Bills\Command\CreateBillsForAccountCommand $command
+     * @param CreateBillsForAccountCommand $command
      */
     public function handle($command)
     {

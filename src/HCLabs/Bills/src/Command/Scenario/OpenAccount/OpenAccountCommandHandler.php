@@ -1,8 +1,8 @@
 <?php
 
-namespace HCLabs\Bills\Command\Handler;
+namespace HCLabs\Bills\Command\Scenario\OpenAccount;
 
-use HCLabs\Bills\Command\OpenAccountCommand;
+use HCLabs\Bills\Command\Handler\AbstractCommandHandler;
 use HCLabs\Bills\Event\AccountWasOpenedEvent;
 use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Repository\AccountRepository;

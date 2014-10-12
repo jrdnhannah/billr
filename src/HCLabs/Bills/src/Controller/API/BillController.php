@@ -3,7 +3,7 @@
 namespace HCLabs\Bills\Controller\API;
 
 use HCLabs\Bills\Command\Bus\CommandBusInterface;
-use HCLabs\Bills\Command\PayBillCommand;
+use HCLabs\Bills\Command\Scenario\PayBill\PayBillCommand;
 use HCLabs\Bills\Exception\BillAlreadyPaidException;
 use HCLabs\Bills\Model\Bill;
 use Symfony\Component\HttpFoundation\JsonResponse;

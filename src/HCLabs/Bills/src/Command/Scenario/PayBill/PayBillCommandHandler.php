@@ -1,8 +1,8 @@
 <?php
 
-namespace HCLabs\Bills\Command\Handler;
+namespace HCLabs\Bills\Command\Scenario\PayBill;
 
-use Doctrine\ORM\EntityManagerInterface;
+use HCLabs\Bills\Command\Handler\AbstractCommandHandler;
 use HCLabs\Bills\Event\BillHasBeenPaidEvent;
 use HCLabs\Bills\Model\Repository\BillRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -19,7 +19,7 @@ class PayBillCommandHandler extends AbstractCommandHandler
     }
 
     /**
-     * @param \HCLabs\Bills\Command\PayBillCommand $command
+     * @param \HCLabs\Bills\Command\Scenario\PayBill\PayBillCommand $command
      */
     public function handle($command)
     {

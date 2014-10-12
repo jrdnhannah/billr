@@ -1,6 +1,6 @@
 <?php
 
-namespace HCLabs\Bills\Command;
+namespace HCLabs\Bills\Command\Scenario\CreateBillsForAccount;
 
 use HCLabs\Bills\Model\Account;
 

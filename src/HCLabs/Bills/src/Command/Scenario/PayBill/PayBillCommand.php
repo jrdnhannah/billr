@@ -1,6 +1,6 @@
 <?php
 
-namespace HCLabs\Bills\Command;
+namespace HCLabs\Bills\Command\Scenario\PayBill;
 
 use HCLabs\Bills\Model\Bill;
 

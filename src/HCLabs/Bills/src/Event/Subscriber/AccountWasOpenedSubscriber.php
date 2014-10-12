@@ -3,7 +3,7 @@
 namespace HCLabs\Bills\Event\Subscriber;
 
 use HCLabs\Bills\Command\Bus\CommandBusInterface;
-use HCLabs\Bills\Command\CreateBillsForAccountCommand;
+use HCLabs\Bills\Command\Scenario\CreateBillsForAccount\CreateBillsForAccountCommand;
 use HCLabs\Bills\Event\AccountWasOpenedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

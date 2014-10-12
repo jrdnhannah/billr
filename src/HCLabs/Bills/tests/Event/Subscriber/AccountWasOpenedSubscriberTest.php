@@ -3,7 +3,7 @@
 namespace HCLabs\Bills\Tests\Event\Subscriber;
 
 
-use HCLabs\Bills\Command\CreateBillsForAccountCommand;
+use HCLabs\Bills\Command\Scenario\CreateBillsForAccount\CreateBillsForAccountCommand;
 use HCLabs\Bills\Event\AccountWasOpenedEvent;
 use HCLabs\Bills\Event\Subscriber\AccountWasOpenedSubscriber;
 

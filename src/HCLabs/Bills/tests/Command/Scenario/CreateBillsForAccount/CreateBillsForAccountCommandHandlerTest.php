@@ -1,13 +1,12 @@
 <?php
 
-namespace HCLabs\Bills\Tests\Command\Handler;
+namespace HCLabs\Bills\Tests\Command\Scenario\CreateBills;
 
 
 use HCLabs\Bills\Billing\BillingPeriod\Monthly;
-use HCLabs\Bills\Command\CreateBillsForAccountCommand;
-use HCLabs\Bills\Command\Handler\CreateBillsForAccountCommandHandler;
+use HCLabs\Bills\Command\Scenario\CreateBillsForAccount\CreateBillsForAccountCommand;
+use HCLabs\Bills\Command\Scenario\CreateBillsForAccount\CreateBillsForAccountCommandHandler;
 use HCLabs\Bills\Model\Account;
-use HCLabs\Bills\Model\Bill;
 use HCLabs\Bills\Model\Service;
 use HCLabs\Bills\Tests\Stub\Model\Repository\Doctrine\BillRepository;
 use HCLabs\Bills\Value\UUID;
