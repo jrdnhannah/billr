@@ -2,18 +2,27 @@
 
 namespace HCLabs\Bills\Command\Handler;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use HCLabs\Bills\Model\Bill;
+use HCLabs\Bills\Model\Repository\BillRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CreateBillsForAccountCommandHandler extends AbstractCommandHandler
 {
     /**
+     * @param EventDispatcherInterface $dispatcher
+     * @param BillRepository           $billRepository
+     */
+    public function __construct(EventDispatcherInterface $dispatcher, BillRepository $billRepository)
+    {
+        parent::__construct($dispatcher);
+        $this->billRepository = $billRepository;
+    }
+
+    /**
      * @param \HCLabs\Bills\Command\CreateBillsForAccountCommand $command
      */
     public function handle($command)
     {
-        $manager        = $this->getEntityManager();
         $account        = $command->getAccount();
         $billingPeriod  = new \DatePeriod($account->getBillingStartDate(),
                                           $account->getBillingInterval(),
@@ -21,9 +30,7 @@ class CreateBillsForAccountCommandHandler extends AbstractCommandHandler
 
         foreach ($billingPeriod as $billDate) {
             $bill = Bill::create($account, $billDate);
-            $manager->persist($bill);
+            $this->billRepository->save($bill);
         }
-
-        $manager->flush();
     }
 }

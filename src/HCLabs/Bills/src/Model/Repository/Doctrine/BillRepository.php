@@ -3,8 +3,9 @@
 namespace HCLabs\Bills\Model\Repository\Doctrine;
 
 use Doctrine\ORM\EntityRepository;
+use HCLabs\Bills\Model\Bill;
 
-class BillRepository extends EntityRepository implements \HCLabs\Bills\Model\Repository\BillRepository
+class BillRepository extends DoctrineRepository implements \HCLabs\Bills\Model\Repository\BillRepository
 {
     /**
      * {@inheritdoc}
@@ -23,4 +24,11 @@ class BillRepository extends EntityRepository implements \HCLabs\Bills\Model\Rep
                     ->getResult();
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function save(Bill $bill)
+    {
+        $this->saveModel($bill);
+    }
 }

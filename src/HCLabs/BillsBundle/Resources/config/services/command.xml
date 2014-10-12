@@ -21,18 +21,19 @@
                  class="%hclabs_bills.command.abstract_command_handler.class%"
                  abstract="true">
             <argument type="service" id="event_dispatcher" />
-            <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
 
         <service id="hclabs_bills.command.open_account_command_handler"
                  class="%hclabs_bills.command.open_account_command_handler.class%"
                  parent="hclabs_bills.command.abstract_command_handler">
+            <argument type="service" id="hclabs_bills.repository.account" />
             <tag name="command.handler" handles="%hclabs_bills.command.open_account_command.class%" />
         </service>
 
         <service id="hclabs_bills.command.pay_bill_command_handler"
                  class="%hclabs_bills.command.pay_bill_command_handler.class%"
                  parent="hclabs_bills.command.abstract_command_handler">
+            <argument type="service" id="hclabs_bills.repository.bill" />
             <tag name="command.handler" handles="%hclabs_bills.command.pay_bill_command.class%" />
         </service>
     </services>

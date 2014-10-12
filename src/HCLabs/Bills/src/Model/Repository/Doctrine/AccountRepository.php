@@ -2,9 +2,15 @@
 
 namespace HCLabs\Bills\Model\Repository\Doctrine;
 
-use Doctrine\ORM\EntityRepository;
+use HCLabs\Bills\Model\Account;
 
-class AccountRepository extends EntityRepository implements \HCLabs\Bills\Model\Repository\AccountRepository
+class AccountRepository extends DoctrineRepository implements \HCLabs\Bills\Model\Repository\AccountRepository
 {
-
+    /**
+     * {@inheritdoc}
+     */
+    public function save(Account $account)
+    {
+        $this->saveModel($account);
+    }
 }
