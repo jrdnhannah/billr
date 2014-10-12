@@ -34,7 +34,6 @@
         <service id="hclabs_bills.controller.bill_controller"
                  class="%hclabs_bills.controller.bill_controller.class%">
             <argument type="service" id="hclabs_bills.command.command_bus" />
-            <argument type="service" id="hclabs_bills.serializer" />
         </service>
 
     </services>
