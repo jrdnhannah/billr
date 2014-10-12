@@ -50,4 +50,12 @@ final class Money
     {
         return (float) ($this->amount * 0.01);
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->toFloat();
+    }
 }
