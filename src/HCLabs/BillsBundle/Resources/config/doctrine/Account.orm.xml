@@ -4,8 +4,8 @@
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
     <entity name="HCLabs\Bills\Model\Account"
             repository-class="HCLabs\Bills\Model\Repository\Doctrine\AccountRepository">
-        <id name="id" type="integer">
-            <generator strategy="AUTO" />
+        <id name="id" type="guid">
+            <generator strategy="UUID" />
         </id>
 
         <field name="accountNumber"      column="account_number"        type="string" length="255" />
