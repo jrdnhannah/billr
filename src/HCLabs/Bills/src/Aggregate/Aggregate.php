@@ -22,6 +22,7 @@ abstract class Aggregate
 
     /**
      * @param AggregateHistory $history
+     * @return \HCLabs\Bills\Aggregate\Aggregate
      */
     public static function reconstituteFromAggregateHistory(AggregateHistory $history)
     {
@@ -33,6 +34,8 @@ abstract class Aggregate
         foreach ($history->getEventHistory() as $event) {
             $aggregate->apply($event);
         }
+
+        return $aggregate;
     }
 
     /**
