@@ -2,23 +2,23 @@
 
 namespace HCLabs\Bills\Command;
 
-use HCLabs\Bills\Model\Bill;
+use HCLabs\Bills\Value\BillId;
 
 class PayBillCommand
 {
-    /** @var \HCLabs\Bills\Model\Bill */
-    private $bill;
+    /** @var BillId */
+    private $billId;
 
-    public function __construct(Bill $bill)
+    public function __construct(BillId $billId)
     {
-        $this->bill = $bill;
+        $this->billId = ($billId);
     }
 
     /**
-     * @return Bill
+     * @return BillId
      */
-    public function getBill()
+    public function getBillId()
     {
-        return $this->bill;
+        return $this->billId;
     }
 }
