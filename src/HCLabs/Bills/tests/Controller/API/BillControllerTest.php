@@ -9,6 +9,7 @@ use HCLabs\Bills\Controller\API\BillController;
 use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Bill;
 use HCLabs\Bills\Model\Service;
+use HCLabs\Bills\Tests\Stub\Model\Repository\Doctrine\BillRepository;
 use HCLabs\Bills\Value\UUID;
 use HCLabs\Bills\Value\Money;
 use HCLabs\Bills\Value\BillingPeriod;
@@ -41,12 +42,10 @@ class BillControllerTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('\Symfony\Component\HttpKernel\Exception\HttpException');
         $dispatcherMock = $this->getMockForAbstractClass('\Symfony\Component\EventDispatcher\EventDispatcherInterface');
-        $emMock         = $this->getMockBuilder('\Doctrine\ORM\EntityManagerInterface')
-                                ->disableOriginalConstructor()
-                                ->getMock();
+        $repository = new BillRepository;
 
         $commandBus = new CommandBus;
-        $handler    = new PayBillCommandHandler($dispatcherMock, $emMock);
+        $handler    = new PayBillCommandHandler($dispatcherMock, $repository);
         $commandBus->addHandler($handler, 'HCLabs\Bills\Command\PayBillCommand');
         $controller = new BillController($commandBus);
         $bill = $this->getBill();

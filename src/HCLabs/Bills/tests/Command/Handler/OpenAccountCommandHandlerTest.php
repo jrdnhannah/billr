@@ -7,6 +7,7 @@ use HCLabs\Bills\Command\Handler\OpenAccountCommandHandler;
 use HCLabs\Bills\Command\OpenAccountCommand;
 use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Service;
+use HCLabs\Bills\Tests\Stub\Model\Repository\Doctrine\AccountRepository;
 use HCLabs\Bills\Value\UUID;
 use HCLabs\Bills\Value\BillingPeriod;
 use HCLabs\Bills\Value\Money;
@@ -19,10 +20,7 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_persist_an_account_to_the_database()
     {
-        $entityManager = $this->getMockBuilder('\Doctrine\ORM\EntityManagerInterface')
-                              ->disableOriginalConstructor()
-                              ->getMockForAbstractClass();
-
+        $repository = new AccountRepository;
         $command = $this->configureOpenAccountCommand();
 
         $account = Account::open(
@@ -33,14 +31,11 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $command->getBillingPeriod()
         );
 
-        $entityManager->expects($this->once())
-                        ->method('persist')
-                        ->with($account);
-        $entityManager->expects($this->once())
-                        ->method('flush');
-
-        $handler = new OpenAccountCommandHandler($this->getEventDispatcherMock(), $entityManager);
+        $handler = new OpenAccountCommandHandler($this->getEventDispatcherMock(), $repository);
         $handler->handle($command);
+
+        $this->assertSame(1, count($repository->findAll()));
+        $this->assertEquals($account, $repository->findAll()[0]);
     }
 
     /**
