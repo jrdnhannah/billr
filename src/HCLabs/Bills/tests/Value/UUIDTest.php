@@ -4,14 +4,14 @@ namespace HCLabs\Bills\Tests\Value;
 
 use HCLabs\Bills\Value as DTO;
 
-class AccountIdTest extends \PHPUnit_Framework_TestCase
+class UUIDTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
      */
     public function it_should_accept_strings()
     {
-        new DTO\AccountId('abc123');
+        new DTO\UUID('abc123');
     }
 
     /**
@@ -19,7 +19,7 @@ class AccountIdTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_provide_a_string_representation()
     {
-        $accountId = new DTO\AccountId('abc123');
+        $accountId = new DTO\UUID('abc123');
 
         $this->assertSame('abc123', (string) $accountId);
     }

@@ -9,7 +9,7 @@ use HCLabs\Bills\Command\Handler\CreateBillsForAccountCommandHandler;
 use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Bill;
 use HCLabs\Bills\Model\Service;
-use HCLabs\Bills\Value\AccountId;
+use HCLabs\Bills\Value\UUID;
 use HCLabs\Bills\Value\BillingPeriod;
 use HCLabs\Bills\Value\Money;
 use HCLabs\Bills\Value\ProvidedService;
@@ -61,7 +61,7 @@ class CreateBillsForAccountCommandHandlerTest extends \PHPUnit_Framework_TestCas
         $service = Service::fromName(new ProvidedService('FooBar'));
         return Account::open(
             $service,
-            new AccountId('abc123'),
+            new UUID('abc123'),
             Money::fromFloat(50.00),
             new \DateTime('now'),
             new BillingPeriod((new Monthly())->getBillingIntervalString()),

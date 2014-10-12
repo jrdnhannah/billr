@@ -4,6 +4,7 @@ namespace HCLabs\Bills\Model;
 
 use HCLabs\Bills\Exception\BillAlreadyPaidException;
 use HCLabs\Bills\Value\Money;
+use HCLabs\Bills\Value\UUID;
 
 class Bill
 {
@@ -48,7 +49,7 @@ class Bill
 
     public function getId()
     {
-        return $this->id;
+        return new UUID($this->id);
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace HCLabs\Bills\Command;
 
 use HCLabs\Bills\Model\Service;
-use HCLabs\Bills\Value\AccountId;
+use HCLabs\Bills\Value\UUID;
 use HCLabs\Bills\Value\BillingPeriod;
 use HCLabs\Bills\Value\Money;
 
@@ -12,7 +12,7 @@ class OpenAccountCommand
     /** @var \HCLabs\Bills\Model\Service */
     private $service;
 
-    /** @var AccountId */
+    /** @var UUID */
     private $accountNumber;
 
     /** @var Money */
@@ -26,7 +26,7 @@ class OpenAccountCommand
 
     public function __construct(
         Service $service,
-        AccountId $accountNumber,
+        UUID $accountNumber,
         Money $recurringCharge,
         \DateTime $dateOpened,
         BillingPeriod $billingPeriod
@@ -39,7 +39,7 @@ class OpenAccountCommand
     }
 
     /**
-     * @return AccountId
+     * @return UUID
      */
     public function getAccountNumber()
     {

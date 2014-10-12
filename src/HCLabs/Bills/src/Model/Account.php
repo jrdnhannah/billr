@@ -5,7 +5,7 @@ namespace HCLabs\Bills\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use HCLabs\Bills\Exception\InvalidDateIntervalSpecException;
-use HCLabs\Bills\Value\AccountId;
+use HCLabs\Bills\Value\UUID;
 use HCLabs\Bills\Value\BillingPeriod;
 use HCLabs\Bills\Value\Money;
 
@@ -47,7 +47,7 @@ class Account
      * Subscribe to a new service
      *
      * @param Service        $service
-     * @param AccountId      $accountNumber
+     * @param UUID      $accountNumber
      * @param Money          $recurringCharge
      * @param \DateTime      $dateOpened
      * @param \DateTime      $billingStartDate
@@ -57,7 +57,7 @@ class Account
      */
     public static function open(
         Service $service,
-        AccountId $accountNumber,
+        UUID $accountNumber,
         Money $recurringCharge,
         \DateTime $dateOpened,
         BillingPeriod $billingPeriod,
@@ -138,11 +138,11 @@ class Account
     }
 
     /**
-     * @return AccountId
+     * @return UUID
      */
     public function getAccountNumber()
     {
-        return new AccountId($this->accountNumber);
+        return new UUID($this->accountNumber);
     }
 
     /**

@@ -9,7 +9,7 @@ use HCLabs\Bills\Controller\API\BillController;
 use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Bill;
 use HCLabs\Bills\Model\Service;
-use HCLabs\Bills\Value\AccountId;
+use HCLabs\Bills\Value\UUID;
 use HCLabs\Bills\Value\Money;
 use HCLabs\Bills\Value\BillingPeriod;
 use HCLabs\Bills\Value\ProvidedService;
@@ -63,14 +63,28 @@ class BillControllerTest extends \PHPUnit_Framework_TestCase
         $service = Service::fromName(new ProvidedService('foo'));
         $account = Account::open(
             $service,
-            new AccountId('abc123'),
+            new UUID('abc123'),
             Money::fromFloat(20.00),
             new \DateTime('now'),
             new BillingPeriod('P30D')
         );
+
         $bill    = Bill::create($account, new \DateTime('now'));
+        
+        $this->injectId($bill);
 
         return $bill;
+    }
+
+    /**
+     * @param $bill
+     */
+    private function injectId($bill)
+    {
+        $billReflection = new \ReflectionObject($bill);
+        $id = $billReflection->getProperty('id');
+        $id->setAccessible(true);
+        $id->setValue($bill, 'abc123');
     }
 }
  
