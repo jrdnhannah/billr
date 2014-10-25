@@ -9,9 +9,11 @@
 
         <parameter key="hclabs_bills.command.open_account_command_handler.class">HCLabs\Bills\Command\Scenario\OpenAccount\OpenAccountCommandHandler</parameter>
         <parameter key="hclabs_bills.command.pay_bill_command_handler.class">HCLabs\Bills\Command\Scenario\PayBill\PayBillCommandHandler</parameter>
+        <parameter key="hclabs_bills.command.create_company_command_handler.class">HCLabs\Bills\Command\Scenario\CreateCompany\CreateCompanyCommandHandler</parameter>
 
         <parameter key="hclabs_bills.command.open_account_command.class">HCLabs\Bills\Command\Scenario\OpenAccount\OpenAccountCommand</parameter>
         <parameter key="hclabs_bills.command.pay_bill_command.class">HCLabs\Bills\Command\Scenario\PayBill\PayBillCommand</parameter>
+        <parameter key="hclabs_bills.command.create_company_command.class">HCLabs\Bills\Command\Scenario\CreateCompany\CreateCompanyCommand</parameter>
     </parameters>
 
     <services>
@@ -35,6 +37,13 @@
                  parent="hclabs_bills.command.abstract_command_handler">
             <argument type="service" id="hclabs_bills.repository.bill" />
             <tag name="command.handler" handles="%hclabs_bills.command.pay_bill_command.class%" />
+        </service>
+
+        <service id="hclabs_bills.command.create_company_command_handler"
+                 class="%hclabs_bills.command.create_company_command_handler.class%"
+                 parent="hclabs_bills.command.abstract_command_handler">
+            <argument type="service" id="hclabs_bills.repository.company" />
+            <tag name="command.handler" handles="%hclabs_bills.command.create_company_command.class%"/>
         </service>
     </services>
 </container>
