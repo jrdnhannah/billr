@@ -2,13 +2,11 @@ filter:
     excluded_paths:
         - src/HCLabs/Bills/fixtures/*
         - src/HCLabs/Bills/tests/*
+        - app/*
 
 build:
     environment:
         php: 5.5.12
-    project_setup:
-        before:
-            - 'cp app/config/parameters.yml.dist app/config/parameters.yml'
     dependencies:
         before:
             - cp app/config/parameters.yml.dist app/config/parameters.yml
@@ -89,6 +87,7 @@ checks:
         avoid_duplicate_types: true
 
 tools:
+    external_code_coverage: true
     sensiolabs_security_checker: true
     php_changetracking: true
     php_cs_fixer:
