@@ -19,6 +19,11 @@ abstract class AbstractCommandHandler implements CommandHandlerInterface
         $this->dispatcher = $dispatcher;
     }
 
+    /**
+     * @param string $eventName
+     * @param Event $event
+     * @return void
+     */
     protected function dispatch($eventName, Event $event)
     {
         $this->dispatcher->dispatch($eventName, $event);
