@@ -4,6 +4,8 @@ filter:
         - src/HCLabs/Bills/tests/*
 
 build:
+    environment:
+        php: 5.5.14
     project_setup:
         before:
             - cp app/config/parameters.yml.dist app/config/parameters.yml
