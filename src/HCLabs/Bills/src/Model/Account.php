@@ -28,7 +28,7 @@ class Account
     /** @var \DateTime */
     private $billingStartDate;
 
-    /** @var int */
+    /** @var string */
     private $billingInterval;
 
     /** @var \DateTime */
