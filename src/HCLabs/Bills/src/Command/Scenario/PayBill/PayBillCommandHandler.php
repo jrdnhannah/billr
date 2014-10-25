@@ -9,7 +9,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PayBillCommandHandler extends AbstractCommandHandler
 {
-    /** @var BilLRepository */
+    /** @var BillRepository */
     private $billRepository;
 
     /**
