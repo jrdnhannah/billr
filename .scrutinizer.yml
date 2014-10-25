@@ -1,7 +1,7 @@
 filter:
     excluded_paths:
-        - src/HCLabs/Bills/fixtures
-        - src/HCLabs/Bills/tests
+        - src/HCLabs/Bills/fixtures/*
+        - src/HCLabs/Bills/tests/*
 
 build:
     project_setup:
