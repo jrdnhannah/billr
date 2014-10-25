@@ -9,6 +9,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CreateBillsForAccountCommandHandler extends AbstractCommandHandler
 {
+    /** @var BillRepository */
+    private $billRepository;
+
     /**
      * @param EventDispatcherInterface $dispatcher
      * @param BillRepository           $billRepository
