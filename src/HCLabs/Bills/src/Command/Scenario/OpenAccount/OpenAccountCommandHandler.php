@@ -25,6 +25,7 @@ class OpenAccountCommandHandler extends AbstractCommandHandler
 
     /**
      * @param OpenAccountCommand $command
+     * @return void
      */
     public function handle($command)
     {

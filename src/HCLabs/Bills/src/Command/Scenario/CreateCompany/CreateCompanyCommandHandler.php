@@ -24,6 +24,7 @@ class CreateCompanyCommandHandler extends AbstractCommandHandler
 
     /**
      * @param CreateCompanyCommand $command
+     * @return void
      */
     public function handle($command)
     {

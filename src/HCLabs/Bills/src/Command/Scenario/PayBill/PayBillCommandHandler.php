@@ -24,6 +24,7 @@ class PayBillCommandHandler extends AbstractCommandHandler
 
     /**
      * @param \HCLabs\Bills\Command\Scenario\PayBill\PayBillCommand $command
+     * @return void
      */
     public function handle($command)
     {

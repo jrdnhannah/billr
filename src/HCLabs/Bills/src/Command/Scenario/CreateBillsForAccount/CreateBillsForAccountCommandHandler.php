@@ -24,6 +24,7 @@ class CreateBillsForAccountCommandHandler extends AbstractCommandHandler
 
     /**
      * @param CreateBillsForAccountCommand $command
+     * @return void
      */
     public function handle($command)
     {
