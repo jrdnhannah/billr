@@ -10,7 +10,7 @@ use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Bill;
 use HCLabs\Bills\Model\Service;
 use HCLabs\Bills\Tests\Stub\Model\Repository\Doctrine\BillRepository;
-use HCLabs\Bills\Value\UUID;
+use HCLabs\Bills\Value\AccountNumber;
 use HCLabs\Bills\Value\Money;
 use HCLabs\Bills\Value\BillingPeriod;
 use HCLabs\Bills\Value\ProvidedService;
@@ -62,7 +62,7 @@ class BillControllerTest extends \PHPUnit_Framework_TestCase
         $service = Service::fromName(new ProvidedService('foo'));
         $account = Account::open(
             $service,
-            new UUID('abc123'),
+            new AccountNumber('abc123'),
             Money::fromFloat(20.00),
             new \DateTime('now'),
             new BillingPeriod('P30D')

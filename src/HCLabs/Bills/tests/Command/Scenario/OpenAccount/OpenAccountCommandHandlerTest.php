@@ -8,7 +8,7 @@ use HCLabs\Bills\Command\Scenario\OpenAccount\OpenAccountCommand;
 use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Service;
 use HCLabs\Bills\Tests\Stub\Model\Repository\Doctrine\AccountRepository;
-use HCLabs\Bills\Value\UUID;
+use HCLabs\Bills\Value\AccountNumber;
 use HCLabs\Bills\Value\BillingPeriod;
 use HCLabs\Bills\Value\Money;
 use HCLabs\Bills\Value\ProvidedService;
@@ -58,7 +58,7 @@ class OpenAccountCommandHandlerTest extends \PHPUnit_Framework_TestCase
     {
         return new OpenAccountCommand(
             Service::fromName(new ProvidedService('Hammers for Rental')),
-            new UUID('abc123'),
+            new AccountNumber('abc123'),
             Money::fromFloat(25.00),
             new \DateTime('now'),
             new BillingPeriod((new Monthly)->getBillingIntervalString())

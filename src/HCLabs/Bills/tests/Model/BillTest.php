@@ -2,11 +2,10 @@
 
 namespace HCLabs\Bills\Tests\Model;
 
-
 use HCLabs\Bills\Model\Account;
 use HCLabs\Bills\Model\Bill;
 use HCLabs\Bills\Model\Service;
-use HCLabs\Bills\Value\UUID;
+use HCLabs\Bills\Value\AccountNumber;
 use HCLabs\Bills\Value\BillingPeriod;
 use HCLabs\Bills\Value\Money;
 use HCLabs\Bills\Value\ProvidedService;
@@ -95,7 +94,7 @@ class BillTest extends \PHPUnit_Framework_TestCase
     {
         return Account::open(
             Service::fromName(new ProvidedService('foo')),
-            new UUID('abc123'),
+            new AccountNumber('abc123'),
             Money::fromFloat(50.00),
             new \DateTime('now'),
             new BillingPeriod('P2Y')

@@ -76,5 +76,18 @@ class CommandBusTest extends \PHPUnit_Framework_TestCase
 
         $commandBus->execute(new \stdClass);
     }
+
+    /**
+     * @test
+     */
+    public function it_should_return_handlers()
+    {
+        $commandBus = new CommandBus;
+        $handler    = new CommandHandler_stub;
+        $commandToHandle = 'HCLabs\Bills\Test\Command\CommandHandler_stub';
+        $commandBus->addHandler($handler, $commandToHandle);
+
+        $this->assertSame([$commandToHandle => $handler], $commandBus->getHandlers());
+    }
 }
  

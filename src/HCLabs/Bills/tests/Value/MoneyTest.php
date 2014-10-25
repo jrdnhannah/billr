@@ -47,5 +47,15 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(15.99, $money2->toFloat());
         $this->assertSame(1599, $money2->toInt());
     }
+
+    /**
+     * @test
+     */
+    public function it_should_provide_a_string()
+    {
+        $money = DTO\Money::fromFloat(12.99);
+
+        $this->assertSame('12.99', (string) $money);
+    }
 }
  

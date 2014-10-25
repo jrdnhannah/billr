@@ -27,13 +27,13 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateOpened = new \DateTime('now');
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString())
         );
 
-        $this->assertEquals(new Value\UUID('1234'), $account->getAccountNumber());
+        $this->assertEquals(new Value\AccountNumber('1234'), $account->getAccountNumber());
         $this->assertEquals(Value\Money::fromFloat(50.00), $account->getRecurringCharge());
         $this->assertSame($dateOpened, $account->getDateOpened());
         $this->assertSame($dateOpened, $account->getBillingStartDate());
@@ -47,7 +47,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateOpened = new \DateTime('now');
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString())
@@ -66,7 +66,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateOpened = new \DateTime('now');
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString())
@@ -85,7 +85,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateOpened = new \DateTime('now');
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString()),
@@ -99,7 +99,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $closingDate = $dateOpened->sub(new \DateInterval('P30D'));
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString()),
@@ -118,7 +118,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateOpened = new \DateTime('now');
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString()),
@@ -136,7 +136,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateOpened = new \DateTime('now');
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString()),
@@ -148,7 +148,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
 
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString()),
@@ -168,7 +168,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateOpened = new \DateTime('now');
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString()),
@@ -180,7 +180,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
 
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString()),
@@ -200,7 +200,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateOpened = new \DateTime('now');
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString()),
@@ -222,7 +222,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateOpened = new \DateTime('now');
         $account = Account::open(
             $service,
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString()),
@@ -240,7 +240,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateOpened = new \DateTime('now');
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString())
@@ -261,7 +261,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateClosed = new \DateTime('now +7 days');
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString()),
@@ -280,7 +280,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateOpened = new \DateTime('now');
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString())
@@ -297,7 +297,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $dateOpened = new \DateTime('now');
         $account = Account::open(
             $this->createServicesAndCompany(),
-            new Value\UUID('1234'),
+            new Value\AccountNumber('1234'),
             Value\Money::fromFloat(50.00),
             $dateOpened,
             new Value\BillingPeriod((new Monthly)->getBillingIntervalString())
