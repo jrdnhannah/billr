@@ -34,5 +34,4 @@ class PayBillCommandHandler extends AbstractCommandHandler
 
         $this->dispatch('bill.paid', new BillHasBeenPaidEvent($command->getBill()));
     }
-
 }

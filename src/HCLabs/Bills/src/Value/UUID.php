@@ -23,5 +23,4 @@ class UUID
     {
         return $this->id;
     }
-
 }

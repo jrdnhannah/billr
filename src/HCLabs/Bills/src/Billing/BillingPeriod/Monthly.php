@@ -11,5 +11,4 @@ class Monthly extends BillingPeriod
     {
         return 'P1M';
     }
-
 }

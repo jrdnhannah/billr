@@ -57,5 +57,4 @@ class OpenAccountType extends AbstractType
     {
         return 'hclabs_bills_open_account_type';
     }
-
 }

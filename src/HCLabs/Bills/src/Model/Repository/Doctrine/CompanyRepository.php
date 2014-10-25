@@ -13,5 +13,4 @@ class CompanyRepository extends DoctrineRepository implements \HCLabs\Bills\Mode
     {
         $this->saveModel($company);
     }
-
 }

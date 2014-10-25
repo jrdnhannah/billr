@@ -23,5 +23,4 @@ class CommandBusCompilerPass implements CompilerPassInterface
             }
         }
     }
-
 }
