@@ -27,16 +27,10 @@ class BillsExtension extends ConfigurableExtension implements PrependExtensionIn
     {
         $bundles = $container->getParameter('kernel.bundles');
 
-        if (false === isset($bundles['TwigBundle'])) {
-            return;
+        if (true === isset($bundles['TwigBundle'])) {
+            $this->configureTwigPaths($container);
+            $this->configureTwigFormTemplates($container);
         }
-
-        $container->prependExtensionConfig(
-            'twig',
-            ['paths' => [
-                '%kernel.root_dir%/../src/HCLabs/Bills/src/Views' => 'HCLabsBills'
-            ]]
-        );
     }
 
     /**
@@ -53,5 +47,36 @@ class BillsExtension extends ConfigurableExtension implements PrependExtensionIn
     public function getAlias()
     {
         return 'bills';
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     */
+    private function configureTwigPaths(ContainerBuilder $container)
+    {
+        $container->prependExtensionConfig(
+            'twig', [
+                'paths' => [
+                    '%kernel.root_dir%/../src/HCLabs/Bills/src/Views' => 'HCLabsBills'
+                ]
+            ]
+        );
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     */
+    private function configureTwigFormTemplates(ContainerBuilder $container)
+    {
+        $container->prependExtensionConfig(
+            'twig', [
+                'form' => [
+                    'resources' => [
+                        'form_div_layout.html.twig',
+                        '@HCLabsBills/Form/Type/money_type.html.twig'
+                    ]
+                ]
+            ]
+        );
     }
 }
