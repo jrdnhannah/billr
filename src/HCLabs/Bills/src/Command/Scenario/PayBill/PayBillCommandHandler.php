@@ -12,6 +12,10 @@ class PayBillCommandHandler extends AbstractCommandHandler
     /** @var BilLRepository */
     private $billRepository;
 
+    /**
+     * @param EventDispatcherInterface $dispatcher
+     * @param BillRepository $billRepository
+     */
     public function __construct(EventDispatcherInterface $dispatcher, BillRepository $billRepository)
     {
         parent::__construct($dispatcher);
