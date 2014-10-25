@@ -3,6 +3,11 @@ filter:
         - src/HCLabs/Bills/fixtures
         - src/HCLabs/Bills/tests
 
+build:
+    project_setup:
+        before:
+            - cp app/config/parameters.yml.dist app/config/parameters.yml
+
 checks:
     php:
         code_rating: true
