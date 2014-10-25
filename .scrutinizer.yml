@@ -5,10 +5,10 @@ filter:
 
 build:
     environment:
-        php: 5.5.14
+        php: 5.5.12
     project_setup:
         before:
-            - cp app/config/parameters.yml.dist app/config/parameters.yml
+            - 'cp app/config/parameters.yml.dist app/config/parameters.yml'
 
 checks:
     php:
