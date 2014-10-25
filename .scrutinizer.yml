@@ -3,6 +3,9 @@ filter:
         - src/HCLabs/Bills/fixtures/*
         - src/HCLabs/Bills/tests/*
         - app/*
+        - web/*
+        - vendor/*
+        - bin/*
 
 build:
     environment:
