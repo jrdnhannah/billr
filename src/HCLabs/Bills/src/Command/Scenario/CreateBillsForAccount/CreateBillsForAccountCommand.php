@@ -9,7 +9,7 @@ class CreateBillsForAccountCommand
     /** @var \HCLabs\Bills\Model\Account */
     private $account;
 
-    function __construct(Account $account)
+    public function __construct(Account $account)
     {
         $this->account = $account;
     }
