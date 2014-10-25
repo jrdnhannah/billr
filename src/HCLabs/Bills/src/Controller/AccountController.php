@@ -72,7 +72,7 @@ class AccountController
         return $this->formFactory->create(
             'hclabs_bills_open_account_type',
             null,
-            ['action' => $this->urlGenerator->generate('hclabs_bills.account_controller.process')]
+            ['action' => $this->urlGenerator->generate('hclabs_bills.account.process')]
         );
     }
 
