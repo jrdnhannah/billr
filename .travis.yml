@@ -21,4 +21,8 @@ before_script:
     touch app/bootstrap.php.cache
 
 script:
-    ./bin/phpunit -c app/
+    ./bin/phpunit -c app/ --coverage-clover=coverage.clover
+
+after_script:
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover

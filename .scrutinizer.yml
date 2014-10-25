@@ -1,0 +1,7 @@
+filter:
+    excluded_paths:
+        - src/HCLabs/Bills/fixtures
+        - src/HCLabs/Bills/tests
+
+tools:
+    external_code_coverage: true
