@@ -2,7 +2,7 @@
 
 namespace HCLabs\Bills\Value;
 
-final class UUID
+class UUID
 {
     /** @var string */
     private $id;
@@ -19,7 +19,7 @@ final class UUID
     /**
      * @return string
      */
-    function __toString()
+    public function __toString()
     {
         return $this->id;
     }
