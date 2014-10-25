@@ -2,15 +2,17 @@
 
 namespace HCLabs\Bills\Command\Scenario\CreateCompany;
 
+use HCLabs\Bills\Value\CompanyName;
+
 class CreateCompanyCommand
 {
-    /** @var string */
+    /** @var CompanyName */
     private $companyName;
 
     /**
-     * @param string $companyName
+     * @param CompanyName $companyName
      */
-    public function __construct($companyName)
+    public function __construct(CompanyName $companyName)
     {
         $this->companyName = $companyName;
     }
